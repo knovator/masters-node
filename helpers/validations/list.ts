@@ -1,26 +1,26 @@
-import Joi from 'Joi';
+import joi from 'joi';
 
-exports.listSchemaKeys = Joi
+export default joi
   .object({
-    search: Joi.string().allow("").replace(/\s+/g, "_").default(""),
-    query: Joi
+    search: joi.string().allow("").replace(/\s+/g, "_").default(""),
+    query: joi
       .object({
-        parentId: Joi.string().optional(),
-        parentCode: Joi.optional(),
-        _id: Joi.string().optional(),
+        parentId: joi.string().optional(),
+        parentCode: joi.optional(),
+        _id: joi.string().optional(),
       })
       .default({}),
-    options: Joi
+    options: joi
       .object({
-        sort: Joi.alternatives().try(Joi.object(), Joi.string()).optional(),
-        populate: Joi.array().items().optional(),
-        offset: Joi.number().optional(),
-        page: Joi.number().optional(),
-        limit: Joi.number().optional(),
-        pagination: Joi.boolean().default(false),
+        sort: joi.alternatives().try(joi.object(), joi.string()).optional(),
+        populate: joi.array().items().optional(),
+        offset: joi.number().optional(),
+        page: joi.number().optional(),
+        limit: joi.number().optional(),
+        pagination: joi.boolean().default(false),
       })
       .default({}),
-    isCountOnly: Joi.boolean().default(false),
-    isActive: Joi.boolean().optional()
+    isCountOnly: joi.boolean().default(false),
+    isActive: joi.boolean().optional()
   })
   .unknown(false);

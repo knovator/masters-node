@@ -1,26 +1,26 @@
-import Joi from 'joi';
+import joi from "joi";
 import("db");
-const Master = require("../../../../models/master");
-const { VALIDATION } = require("constants/common");
+// const Master = require("../../../../models/master");
+// const { VALIDATION } = require("constants/common");
 
-const method = async (value) => {
-  const result = await dbService.getDocumentByQuery(Master, {
-    code: value,
-  });
-  if (result) {
-    throw new Error(VALIDATION.MASTER_EXISTS);
-  }
-  return;
-};
+// const method = async (value) => {
+//   const result = await dbService.getDocumentByQuery(Master, {
+//     code: value,
+//   });
+//   if (result) {
+//     throw new Error(VALIDATION.MASTER_EXISTS);
+//   }
+//   return;
+// };
 
-exports.schemaKeys = joi
+export default joi
   .object({
     name: joi.string().required(),
     code: joi
       .string()
       .uppercase()
       .replace(/\s+/g, "_")
-      .external(method)
+      // .external(method)
       .required(),
     desc: joi.string().optional(),
     parentId: joi.string().optional(),

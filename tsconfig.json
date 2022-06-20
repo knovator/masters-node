@@ -6,6 +6,9 @@
             "es6",
             "es2017"
         ],
+        "types": [
+            "node"
+        ],
         "skipLibCheck": true,
         "sourceMap": true,
         "outDir": "./dist",
@@ -31,6 +34,8 @@
         "./**/*.test.ts"
     ],
     "include": [
-        "./**/*.ts"
+        "./**/*.ts",
+        "global.d.ts",
+        "tscsonfig-paths.js"
     ],
 }

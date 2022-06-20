@@ -1,6 +1,6 @@
-const joi = require("joi");
+import joi from 'joi';
 
-exports.updatedSchemaKeys = joi
+export default joi
   .object({
     name: joi.string().optional(),
     desc: joi.optional(),

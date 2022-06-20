@@ -1,21 +1,16 @@
-const { schemaKeys } = require("./create");
-const { updatedSchemaKeys } = require("./update");
-const {
-  activate,
-  isDefault,
-  webVisible,
-  sequence,
-} = require("./partialUpdate");
-const { listSchemaKeys } = require("./list");
-const { masterDelete } = require("./delete");
+import CreateSchema from "./create";
+import UpdateSchema from "./update";
+import { activate, isDefault, webVisible, sequence } from "./partialUpdate";
+import ListSchema from "./list";
+import DeleteSchema from "./delete";
 
-module.exports = {
-  schemaKeys,
-  updatedSchemaKeys,
+export {
+  CreateSchema,
+  UpdateSchema,
   activate,
   isDefault,
   webVisible,
   sequence,
-  listSchemaKeys,
-  masterDelete,
+  ListSchema,
+  DeleteSchema,
 };

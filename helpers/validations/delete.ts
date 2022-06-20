@@ -1,6 +1,6 @@
-const joi = require("joi");
+import joi from "joi";
 
-exports.masterDelete = joi
+export default joi
   .object({
     id: joi.array().items().required(),
     deletedBy: joi.object().optional(),
