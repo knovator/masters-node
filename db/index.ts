@@ -19,7 +19,7 @@ mongoose
   .connect(dConnection)
   .then(async () => {})
   .catch((err) => {
-    console.log(err.message);
+    logger.error("DB Error", err);
   });
 
 export default mongoose;

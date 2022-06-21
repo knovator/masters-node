@@ -31,7 +31,7 @@ export const createMaster = catchAsync(async (req: any, res: any) => {
       deletedAt: { $exists: false },
     });
     if (checkCode) {
-      let message = req.i18n.t("master.codeExists");
+      let message = req?.i18n?.t("master.codeExists");
       return failureResponse(message, res);
     }
     const masterData = await createDocument(Master, data);
@@ -39,11 +39,11 @@ export const createMaster = catchAsync(async (req: any, res: any) => {
       { path: "img", select: "uri" },
     ]);
     if (result) {
-      res.message = req.i18n.t("master.create");
+      res.message = req?.i18n?.t("master.create");
       return createdDocumentResponse(result, res);
     }
   } catch (error) {
-    console.log(error);
+    logger.error("CreateMaster Error", error);
   }
 });
 
@@ -62,11 +62,11 @@ export const updateMaster = catchAsync(async (req: any, res: any) => {
     );
     const result = await Master.findOne({ _id: id });
     if (result) {
-      res.message = req.i18n.t("master.update");
+      res.message = req?.i18n?.t("master.update");
       return successResponse(result, res);
     }
   } catch (error) {
-    console.log(error);
+    logger.error("UpdateMaster Error", error);
   }
 });
 
@@ -84,13 +84,13 @@ export const activateMaster = catchAsync(async (req: any, res: any) => {
       { path: "img", select: "uri" }
     );
     if (result.isActive) {
-      res.message = req.i18n.t("master.activate");
+      res.message = req?.i18n?.t("master.activate");
     } else {
-      res.message = req.i18n.t("master.deactivate");
+      res.message = req?.i18n?.t("master.deactivate");
     }
     return successResponse(result, res);
   } catch (error) {
-    console.log(error);
+    logger.error("ActivateMasterError", error);
   }
 });
 
@@ -108,13 +108,13 @@ export const webVisibleMaster = catchAsync(async (req: any, res: any) => {
       { path: "img", select: "uri" }
     );
     if (result.isWebVisible) {
-      res.message = req.i18n.t("master.display");
+      res.message = req?.i18n?.t("master.display");
     } else {
-      res.message = req.i18n.t("master.notDisplay");
+      res.message = req?.i18n?.t("master.notDisplay");
     }
     return successResponse(result, res);
   } catch (error) {
-    console.log(error);
+    logger.error("WebVisibleMaster Error", error);
   }
 });
 
@@ -125,23 +125,23 @@ export const defaultMaster = catchAsync(async (req: any, res: any) => {
       req.body
     );
     if (result.isDefault) {
-      res.message = req.i18n.t("master.default");
+      res.message = req?.i18n?.t("master.default");
     } else {
-      res.message = req.i18n.t("master.notDefault");
+      res.message = req?.i18n?.t("master.notDefault");
     }
     return successResponse(result, res);
   } catch (error) {
-    console.log(error);
+    logger.error("DefaultMaster Error", error);
   }
 });
 
 export const sequenceMaster = catchAsync(async (req: any, res: any) => {
   try {
     const result = await masterService.sequenceMaster(req.params.id, req.body);
-    res.message = req.i18n.t("master.seq");
+    res.message = req?.i18n?.t("master.seq");
     return successResponse(result, res);
   } catch (error) {
-    console.log(error);
+    logger.error("UpdateSequence Error", error);
   }
 });
 
@@ -164,11 +164,11 @@ export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
       { $inc: { seq: -1 } }
     );
     if (result) {
-      res.message = req.i18n.t("master.delete");
+      res.message = req?.i18n?.t("master.delete");
       return successResponse(result, res);
     }
   } catch (error) {
-    console.log(error);
+    logger.error("SoftDelete Error", error);
   }
 });
 
@@ -190,12 +190,12 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
       [true, false]
     );
     if (result) {
-      res.message = req.i18n.t("master.findAll");
+      res.message = req?.i18n?.t("master.findAll");
       return successResponse(result, res);
     }
-    res.message = req.i18n.t("master.masterNotFound");
+    res.message = req?.i18n?.t("master.masterNotFound");
     return recordNotFound(res);
   } catch (error) {
-    console.log(error);
+    logger.error("ListMaster Error", error);
   }
 });

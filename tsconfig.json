@@ -27,7 +27,12 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "resolveJsonModule": true,
-        "baseUrl": "."
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "./*"
+            ]
+        }
     },
     "exclude": [
         "node_modules",
@@ -36,6 +41,6 @@
     "include": [
         "./**/*.ts",
         "global.d.ts",
-        "tscsonfig-paths.js"
-    ],
+        "tsconfig-paths.js"
+    ]
 }

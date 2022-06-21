@@ -1,17 +1,17 @@
 import joi from "joi";
-import("db");
-// const Master = require("../../../../models/master");
-// const { VALIDATION } = require("constants/common");
+import Master from "models/master";
+import { VALIDATION } from "constants/common";
+import { getDocumentByQuery } from "helpers/dbService";
 
-// const method = async (value) => {
-//   const result = await dbService.getDocumentByQuery(Master, {
-//     code: value,
-//   });
-//   if (result) {
-//     throw new Error(VALIDATION.MASTER_EXISTS);
-//   }
-//   return;
-// };
+const method = async (value: string) => {
+  const result = await getDocumentByQuery(Master, {
+    code: value,
+  });
+  if (result) {
+    throw new Error(VALIDATION.MASTER_EXISTS);
+  }
+  return;
+};
 
 export default joi
   .object({
@@ -20,7 +20,7 @@ export default joi
       .string()
       .uppercase()
       .replace(/\s+/g, "_")
-      // .external(method)
+      .external(method)
       .required(),
     desc: joi.string().optional(),
     parentId: joi.string().optional(),
