@@ -3,16 +3,16 @@ import {
   createdDocumentResponse,
   successResponse,
   recordNotFound,
-} from "helpers/messages";
-import defaults from "helpers/defaults";
+} from "../helpers/messages";
+import defaults from "../helpers/defaults";
 
-import Master from "models/master";
-import * as masterService from "services/master";
+import Master from "../models/master";
+import * as masterService from "../services/master";
 import {
   bulkUpdate,
   findOneAndUpdateDocument,
   createDocument,
-} from "helpers/dbService";
+} from "../helpers/dbService";
 
 const catchAsync = (fn: any) => {
   return defaults.catchAsync(fn);

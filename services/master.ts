@@ -1,11 +1,11 @@
-import Master from "models/master";
+import Master from "../models/master";
 import {
   getDocumentByQuery,
   bulkUpdate,
   findOneAndUpdateDocument,
   countDocument,
   getAllDocuments,
-} from "helpers/dbService";
+} from "../helpers/dbService";
 
 export const defaultMaster = async (id: any, data: any) => {
   try {

@@ -1,7 +1,7 @@
 import joi from "joi";
-import Master from "models/master";
-import { VALIDATION } from "constants/common";
-import { getDocumentByQuery } from "helpers/dbService";
+import Master from "../../models/master";
+import { VALIDATION } from "../../constants/common";
+import { getDocumentByQuery } from "../../helpers/dbService";
 
 const method = async (value: string) => {
   const result = await getDocumentByQuery(Master, {

@@ -1,9 +1,9 @@
 import express from "express";
-import defaults from "helpers/defaults";
+import defaults from "../helpers/defaults";
 
-import validate from "policies/validate";
-import * as masterValidation from "helpers/validations";
-import * as MasterController from "controllers/masterController";
+import validate from "../policies/validate";
+import * as masterValidation from "../helpers/validations";
+import * as MasterController from "../controllers/masterController";
 
 const routes = express.Router();
 routes.use(express.json());

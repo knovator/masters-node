@@ -1,4 +1,4 @@
-import { RESPONSE_CODE, internalServerError } from "constants/common";
+import { RESPONSE_CODE, internalServerError } from "../constants/common";
 
 export default {
   logger: console,

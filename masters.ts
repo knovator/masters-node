@@ -1,4 +1,4 @@
-import defaults from "helpers/defaults";
+import defaults from "./helpers/defaults";
 import routes from "./routes/masterRoutes";
 
 interface MastersProps {

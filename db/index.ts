@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
-import defaults from "helpers/defaults";
+import defaults from "../helpers/defaults";
 
 const path = require("path");
 const dotenv = require("dotenv");
 const data = path.dirname(require.main?.filename);
+// console.log(require.main?.filename, data);
 dotenv.config({ path: path.join(data, ".env") });
 const dbConfigure =
   process.env.DB_USERNAME && process.env.DB_PASSWORD

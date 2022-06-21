@@ -1,6 +1,5 @@
-import "dotenv/config";
 import express from "express";
-import masters from "masters";
+import masters from "./masters";
 
 const app = express();
 const http = require("http");

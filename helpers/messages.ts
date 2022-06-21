@@ -3,7 +3,7 @@ import {
   validationError,
   success,
   create,
-} from "constants/common";
+} from "../constants/common";
 
 export const failureResponse = (data: any, res: any) => {
   let i = 0;

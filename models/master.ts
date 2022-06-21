@@ -1,4 +1,4 @@
-import mongoose from "db";
+import mongoose from "../db";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 const myCustomLabels = {
