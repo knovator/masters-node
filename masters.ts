@@ -1,65 +1,26 @@
-import express from "express";
+import defaults from "helpers/defaults";
+import routes from "./routes/masterRoutes";
 
-import validate from "policies/validate";
-import * as masterValidation from "helpers/validations";
-import * as MasterController from "controllers/masterController";
+interface MastersProps {
+  convertToTz: (params: any) => any;
+  authentication(_req: any, _res: any, next: () => any): void;
+  logger: any;
 
-const routes = express.Router();
+  catchAsync(fn: any): (req: any, res: any, next: any) => void;
+}
 
-routes.post(
-  `${routePrefix}/create`,
+function masters({
+  convertToTz,
   authentication,
-  validate(masterValidation.CreateSchema),
-  MasterController.createMaster
-);
-// .descriptor("admin.master.create");
-routes.put(
-  `${routePrefix}/update/:id`,
-  authentication,
-  validate(masterValidation.UpdateSchema),
-  MasterController.updateMaster
-);
-// .descriptor("admin.master.update");
-routes.patch(
-  `${routePrefix}/partial-update/activate/:id`,
-  authentication,
-  validate(masterValidation.activate),
-  MasterController.activateMaster
-);
-// .descriptor("admin.master.active");
-routes.patch(
-  `${routePrefix}/partial-update/default/:id`,
-  authentication,
-  validate(masterValidation.isDefault),
-  MasterController.defaultMaster
-);
-// .descriptor("admin.master.default");
-routes.patch(
-  `${routePrefix}/partial-update/web-visible/:id`,
-  authentication,
-  validate(masterValidation.webVisible),
-  MasterController.webVisibleMaster
-);
-routes.patch(
-  `${routePrefix}/partial-update/sequence/:id`,
-  authentication,
-  validate(masterValidation.sequence),
-  MasterController.sequenceMaster
-);
-// .descriptor("admin.master.sequence");
-routes.put(
-  `${routePrefix}/soft-delete`,
-  authentication,
-  validate(masterValidation.DeleteSchema),
-  MasterController.softDeleteMaster
-);
-// .descriptor("admin.master.softDelete");
-routes.post(
-  `${routePrefix}/list`,
-  authentication,
-  validate(masterValidation.ListSchema),
-  MasterController.listMaster
-);
-// .descriptor("admin.master.getAll");
+  logger,
+  catchAsync,
+}: Partial<MastersProps> = defaults) {
+  if (typeof catchAsync === "function") defaults.catchAsync = catchAsync;
+  if (typeof convertToTz === "function") defaults.convertToTz = convertToTz;
+  if (typeof authentication === "function")
+    defaults.authentication = authentication!;
+  if (typeof logger === "function") defaults.logger = logger;
+  return routes;
+}
 
-export default routes;
+export default masters;

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import defaults from "helpers/defaults";
 
 const path = require("path");
 const dotenv = require("dotenv");
@@ -19,7 +20,7 @@ mongoose
   .connect(dConnection)
   .then(async () => {})
   .catch((err) => {
-    logger.error("DB Error", err);
+    defaults.logger.error("DB Error", err);
   });
 
 export default mongoose;

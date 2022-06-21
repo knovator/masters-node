@@ -4,7 +4,7 @@ import {
   successResponse,
   recordNotFound,
 } from "helpers/messages";
-import { convertToTz } from "services/timezone";
+import defaults from "helpers/defaults";
 
 import Master from "models/master";
 import * as masterService from "services/master";
@@ -13,6 +13,10 @@ import {
   findOneAndUpdateDocument,
   createDocument,
 } from "helpers/dbService";
+
+const catchAsync = (fn: any) => {
+  return defaults.catchAsync(fn);
+};
 
 export const createMaster = catchAsync(async (req: any, res: any) => {
   try {
@@ -43,7 +47,7 @@ export const createMaster = catchAsync(async (req: any, res: any) => {
       return createdDocumentResponse(result, res);
     }
   } catch (error) {
-    logger.error("CreateMaster Error", error);
+    defaults.logger.error("CreateMaster Error", error);
   }
 });
 
@@ -66,7 +70,7 @@ export const updateMaster = catchAsync(async (req: any, res: any) => {
       return successResponse(result, res);
     }
   } catch (error) {
-    logger.error("UpdateMaster Error", error);
+    defaults.logger.error("UpdateMaster Error", error);
   }
 });
 
@@ -90,7 +94,7 @@ export const activateMaster = catchAsync(async (req: any, res: any) => {
     }
     return successResponse(result, res);
   } catch (error) {
-    logger.error("ActivateMasterError", error);
+    defaults.logger.error("ActivateMasterError", error);
   }
 });
 
@@ -114,7 +118,7 @@ export const webVisibleMaster = catchAsync(async (req: any, res: any) => {
     }
     return successResponse(result, res);
   } catch (error) {
-    logger.error("WebVisibleMaster Error", error);
+    defaults.logger.error("WebVisibleMaster Error", error);
   }
 });
 
@@ -131,7 +135,7 @@ export const defaultMaster = catchAsync(async (req: any, res: any) => {
     }
     return successResponse(result, res);
   } catch (error) {
-    logger.error("DefaultMaster Error", error);
+    defaults.logger.error("DefaultMaster Error", error);
   }
 });
 
@@ -141,7 +145,7 @@ export const sequenceMaster = catchAsync(async (req: any, res: any) => {
     res.message = req?.i18n?.t("master.seq");
     return successResponse(result, res);
   } catch (error) {
-    logger.error("UpdateSequence Error", error);
+    defaults.logger.error("UpdateSequence Error", error);
   }
 });
 
@@ -149,7 +153,10 @@ export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
   try {
     const id = req.body.id;
     const data = {
-      deletedAt: await convertToTz({ tz: process.env.TZ, date: new Date() }),
+      deletedAt: await defaults.convertToTz({
+        tz: process.env.TZ,
+        date: new Date(),
+      }),
     };
     const master = await Master.findById(id);
     const result = await bulkUpdate(
@@ -168,7 +175,7 @@ export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
       return successResponse(result, res);
     }
   } catch (error) {
-    logger.error("SoftDelete Error", error);
+    defaults.logger.error("SoftDelete Error", error);
   }
 });
 
@@ -196,6 +203,6 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
     res.message = req?.i18n?.t("master.masterNotFound");
     return recordNotFound(res);
   } catch (error) {
-    logger.error("ListMaster Error", error);
+    defaults.logger.error("ListMaster Error", error);
   }
 });
