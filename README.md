@@ -1,51 +1,25 @@
 <div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/knovator/masters">
+  <!-- <a href="https://github.com/knovator/masters-node">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
 
 <h3 align="center">@knovator/masters-node</h3>
 
   <p align="center">
-    NodeJS package that integrate API for @knovator/masters in nodejs application
+    NodeJS package that integrate API for @knovator/masters-node in nodejs application
     <br />
-    <a href="https://github.com/knovator/masters"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/knovator/masters-node"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/knovator/masters">View Demo</a>
+    <a href="https://github.com/knovator/masters-node">View Demo</a>
     ·
-    <a href="https://github.com/knovator/masters/issues">Report Bug</a>
+    <a href="https://github.com/knovator/masters-node/issues">Report Bug</a>
     ·
-    <a href="https://github.com/knovator/masters/issues">Request Feature</a>
+    <a href="https://github.com/knovator/masters-node/issues">Request Feature</a>
   </p>
 </div>
 
@@ -68,12 +42,25 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#parameter-explanations">Parameter Explanations</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#routes-infomration">Routes Information</a>
+      <ul>
+        <li><a href="#response-codes">Response Codes</a></li>
+        <li><a href="#custom-validation-messages">Validation Messages</a></li>
+        <li><a href="#http-status-codes">HTTP Status Codes</a></li>
+        <li><a href="#routes">Routes</a></li>
+        <li><a href="#i18n-code-for-messages">i18n Message Codes</a></li>
+      </ul>
+    </li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -82,7 +69,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `knovator`, `masters`
+`@knovator/masters-node` is built with intent to faster development cycle by providing plug & play facility for masters/submasters, that is used almost on every project.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -102,7 +89,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To integrate `@knovator/masters`, you should be having basic `nodejs` application up and running with `express` (optionally using `mongoose` for `mongodb` database). `@knovator/masters` add routes for **masters** in application.
+To integrate `@knovator/masters-node`, you should be having basic `nodejs` application up and running with `express` (optionally using `mongoose` for `mongodb` database). `@knovator/masters-node` add routes for **masters** in application.
 
 ### Prerequisites
 
@@ -142,7 +129,7 @@ As mentioned it's good start to have `nodejs` application up and running with `e
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-App/Main file is a good place to use `@knovator/masters`
+App/Main file is a good place to use `@knovator/masters-node`
   ```js
     const express = require("express");
     const app = express();
@@ -301,8 +288,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Knovator Technologies
+- Twitter [@knovator](https://twitter.com/knovator)
+- Web [https://knovator.com/](https://knovator.com/)
 
-Project Link: [https://github.com/knovator/masters](https://github.com/knovator/masters)
+Project Link: [https://github.com/knovator/masters-node](https://github.com/knovator/masters-node)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
