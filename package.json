@@ -4,11 +4,13 @@
   "description": "NodeJS backend for @knovator/masters",
   "main": "dist/masters.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "package.json"
   ],
   "repository": {
     "type": "git",
-    "url": "git@git.knovator.in:knovators/masters-node.git"
+    "url": "git@github.com:knovator/masters-node.git"
   },
   "keywords": [
     "masters",
