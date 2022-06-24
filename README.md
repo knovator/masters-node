@@ -110,7 +110,7 @@ As mentioned it's good start to have `nodejs` application up and running with `e
 1. Install library
    ```sh
    npm install @knovator/masters-node
-   or
+   # or
    yarn add @knovator/masters-node
    ```
 2. Enter database & timezone information in `.env`
@@ -291,6 +291,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 Knovator Technologies
 - Twitter [@knovator](https://twitter.com/knovator)
 - Web [https://knovator.com/](https://knovator.com/)
+- chavda-bhavik (https://github.com/chavda-bhavik)
 
 Project Link: [https://github.com/knovator/masters-node](https://github.com/knovator/masters-node)
 
