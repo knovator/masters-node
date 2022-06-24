@@ -28,7 +28,7 @@ export const defaultMaster = async (id: any, data: any) => {
     );
     return result;
   } catch (error) {
-    throw new Error(error);
+    throw new Error((error as Error).message);
   }
 };
 
@@ -63,7 +63,7 @@ export const sequenceMaster = async (id: any, data: any) => {
     );
     return result;
   } catch (error) {
-    throw new Error(error);
+    throw new Error((error as Error).message);
   }
 };
 
@@ -134,6 +134,6 @@ export const listMaster = async (
       return result;
     }
   } catch (error) {
-    throw new Error(error);
+    throw new Error((error as Error).message);
   }
 };

@@ -1,14 +1,20 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "strict": true,
+        "target": "ES2019",
+        "module": "commonJS",
+        "moduleResolution": "node",
+        "skipLibCheck": true,
         "lib": [
-            "es6"
+            "es2020"
         ],
+        "noEmitOnError": true,
+        "outDir": "./dist",
+        "importsNotUsedAsValues": "error",
         "types": [
             "node"
         ],
-        "skipLibCheck": true,
-        "outDir": "./dist",
+        "forceConsistentCasingInFileNames": true,
         "removeComments": true,
         "noImplicitAny": true,
         "esModuleInterop": true,
@@ -19,7 +25,8 @@
         "noUnusedParameters": true,
     },
     "exclude": [
-        "./**/*.test.ts"
+        "./**/*.test.ts",
+        "main.ts"
     ],
     "files": [
         "index.d.ts"

@@ -6,7 +6,7 @@ const validate = (validator: any) => {
     try {
       req.body = await validator.validateAsync(req.body);
       next();
-    } catch (err) {
+    } catch (err: any) {
       defaults.logger.error("ValidationError", err);
       if (err.isJoi) return inValidParam(err.message, res);
       next(failureResponse(err.message, res));

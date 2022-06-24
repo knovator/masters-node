@@ -9,7 +9,7 @@ interface MastersProps {
   catchAsync(fn: any): (req: any, res: any, next: any) => void;
 }
 
-function masters({
+export function masters({
   convertToTz,
   authentication,
   logger,
@@ -18,9 +18,7 @@ function masters({
   if (typeof catchAsync === "function") defaults.catchAsync = catchAsync;
   if (typeof convertToTz === "function") defaults.convertToTz = convertToTz;
   if (typeof authentication === "function")
-    defaults.authentication = authentication!;
+    defaults.authentication = authentication;
   if (typeof logger === "function") defaults.logger = logger;
   return routes;
 }
-
-export default masters;
