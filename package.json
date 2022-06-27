@@ -6,7 +6,8 @@
   "files": [
     "dist",
     "README.md",
-    "package.json"
+    "package.json",
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -25,8 +26,8 @@
     "start": "node dist/main.js"
   },
   "types": "./index.d.ts",
-  "author": "",
-  "license": "ISC",
+  "author": "knovator (https://knovator.com/)",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
