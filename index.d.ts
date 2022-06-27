@@ -1,4 +1,4 @@
-declare module "masters-node" {
+declare module "@knovator/masters-node" {
   export type MastersProps = {
     convertToTz: (params: any) => any;
     authentication(_req: any, _res: any, next: () => any): void;
