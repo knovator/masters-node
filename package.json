@@ -23,7 +23,10 @@
     "build": "tsc",
     "watch": "tsc -w && tspath",
     "dev": "nodemon dist/main.js",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "prepublish": "npm run build",
+    "publish": "npm publish",
+    "postpublish": "git push --tags"
   },
   "types": "./index.d.ts",
   "author": "knovator (https://knovator.com/)",
