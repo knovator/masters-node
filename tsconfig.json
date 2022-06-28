@@ -16,7 +16,6 @@
         ],
         "forceConsistentCasingInFileNames": true,
         "removeComments": true,
-        "noImplicitAny": true,
         "esModuleInterop": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,

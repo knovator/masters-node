@@ -72,7 +72,8 @@ export const listMaster = async (
   isCountOnly: any,
   search: any,
   customQuery: any,
-  onlyActive = [true]
+  onlyActive = [true],
+  populate = []
 ) => {
   try {
     let query = {
@@ -105,6 +106,7 @@ export const listMaster = async (
       projection: "",
       lean: true,
       leanWithId: true,
+      populate: Array.isArray(populate) ? populate : [],
     };
     if (customQuery.parentCode) {
       if (Array.isArray(customQuery.parentCode)) {
