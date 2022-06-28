@@ -149,7 +149,7 @@ export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
 });
 
 export const listMaster = catchAsync(async (req: any, res: any) => {
-  let { page, limit, sort } = req.body.options;
+  let { page, limit, sort, populate } = req.body.options;
   const isCountOnly = req.body.isCountOnly || false;
   const search = req.body.search || "";
   const customQuery = req.body.query || {};
@@ -162,7 +162,8 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
     isCountOnly,
     search,
     customQuery,
-    [true, false]
+    [true, false],
+    populate
   );
   if (result) {
     res.message = req?.i18n?.t("master.findAll");
