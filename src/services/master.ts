@@ -1,4 +1,4 @@
-import Master from "../models/master";
+import Master from "../models/Master";
 import {
   getDocumentByQuery,
   bulkUpdate,
@@ -6,8 +6,9 @@ import {
   countDocument,
   getAllDocuments,
 } from "../helpers/dbService";
+import { UpdateQuery } from "mongoose";
 
-export const defaultMaster = async (id: any, data: any) => {
+export const defaultMaster = async (id: string, data: UpdateQuery<MasterType>) => {
   try {
     const masterData: any = await getDocumentByQuery(Master, { _id: id });
     if (masterData.parentId) {
@@ -24,7 +25,7 @@ export const defaultMaster = async (id: any, data: any) => {
       },
       data,
       { new: true },
-      { path: "img", select: "uri" }
+      { path: 'img', select: 'uri' }
     );
     return result;
   } catch (error) {
@@ -32,7 +33,7 @@ export const defaultMaster = async (id: any, data: any) => {
   }
 };
 
-export const sequenceMaster = async (id: any, data: any) => {
+export const sequenceMaster = async (id: any, data: UpdateQuery<MasterType>) => {
   try {
     const masterData: any = await getDocumentByQuery(Master, { _id: id });
     if (masterData?.seq > data.seq && masterData.parentId) {
@@ -59,7 +60,7 @@ export const sequenceMaster = async (id: any, data: any) => {
       { _id: id },
       data,
       { new: true },
-      { path: "img", select: "uri" }
+      { path: 'img', select: 'uri' }
     );
     return result;
   } catch (error) {
@@ -115,7 +116,7 @@ export const listMaster = async (
         Object.assign(query, { parentCode: customQuery.parentCode });
       }
     } else {
-      Object.assign(query, { parentId: { $exists: false } });
+      Object.assign(query, { parentCode: { $exists: false } });
     }
     let result;
     if (isCountOnly) {
@@ -129,6 +130,7 @@ export const listMaster = async (
           ...customOptions,
         };
       }
+      // @ts-ignore
       result = await getAllDocuments(Master, query, options);
       if (!result) {
         return false;

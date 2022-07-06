@@ -1,17 +1,7 @@
 import joi from "joi";
-import Master from "../../models/master";
+import Master from "../../models/Master";
 import { VALIDATION } from "../../constants/common";
 import { getDocumentByQuery } from "../../helpers/dbService";
-
-const method = async (value: string) => {
-  const result = await getDocumentByQuery(Master, {
-    code: value,
-  });
-  if (result) {
-    throw new Error(VALIDATION.MASTER_EXISTS);
-  }
-  return;
-};
 
 export default joi
   .object({
@@ -20,9 +10,9 @@ export default joi
       .string()
       .uppercase()
       .replace(/\s+/g, "_")
-      .external(method)
+      // .external(method)
       .required(),
-    desc: joi.string().optional(),
+    desc: joi.string().allow('').optional(),
     parentId: joi.string().optional(),
     parentCode: joi.string().optional(),
     img: joi.string().optional(),
@@ -36,5 +26,16 @@ export default joi
     deletedBy: joi.object().optional(),
     deletedAt: joi.date().optional(),
     isActive: joi.boolean().default(true),
+  })
+  .custom(async (obj) => {
+    const { parentId, code } = obj;
+    let search: { code: string, parentId?: string } = { code };
+    if(parentId) search.parentId = parentId;
+    else search.parentId = undefined;
+    const result = await getDocumentByQuery(Master, search);
+    if (result) {
+      throw new Error(VALIDATION.MASTER_EXISTS);
+    }
+    return obj;
   })
   .unknown(false);
