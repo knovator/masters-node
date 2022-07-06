@@ -6,7 +6,7 @@ import {
 } from "../helpers/messages";
 import defaults from "../helpers/defaults";
 
-import Master from "../models/master";
+import Master from "../models/Master";
 import * as masterService from "../services/master";
 import {
   bulkUpdate,
@@ -29,14 +29,14 @@ export const createMaster = catchAsync(async (req: any, res: any) => {
       { isDefault: false }
     );
   }
-  let checkCode = await Master.findOne({
-    code: req.body.code,
-    deletedAt: { $exists: false },
-  });
-  if (checkCode) {
-    let message = req?.i18n?.t("master.codeExists");
-    return failureResponse(message, res);
-  }
+  // let checkCode = await Master.findOne({
+  //   code: req.body.code,
+  //   deletedAt: { $exists: false },
+  // });
+  // if (checkCode) {
+  //   let message = req?.i18n?.t("master.codeExists");
+  //   return failureResponse(message, res);
+  // }
   const masterData = await createDocument(Master, data);
   const result = await Master.populate(masterData, [
     { path: "img", select: "uri" },
@@ -129,8 +129,8 @@ export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
   const id = req.body.id;
   const data = {
     deletedAt: await defaults.convertToTz({
-      tz: process.env.TZ,
-      date: new Date(),
+      tz: process.env.TZ || '',
+      date: new Date().toISOString(),
     }),
   };
   const master = await Master.findById(id);
@@ -141,7 +141,7 @@ export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
     },
     data
   );
-  await Master.updateMany({ seq: { $gt: master.seq } }, { $inc: { seq: -1 } });
+  await Master.updateMany({ seq: { $gt: master?.seq } }, { $inc: { seq: -1 } });
   if (result) {
     res.message = req?.i18n?.t("master.delete");
     return successResponse(result, res);
