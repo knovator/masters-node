@@ -1,5 +1,6 @@
-import defaults from "./helpers/defaults";
-import routes from "./routes/masterRoutes";
+import './db';
+import defaults from './helpers/defaults';
+import routes from './routes/masterRoutes';
 
 interface MastersProps {
   convertToTz: (params: any) => any;
@@ -15,10 +16,10 @@ export function masters({
   logger,
   catchAsync,
 }: Partial<MastersProps> = defaults) {
-  if (typeof catchAsync === "function") defaults.catchAsync = catchAsync;
-  if (typeof convertToTz === "function") defaults.convertToTz = convertToTz;
-  if (typeof authentication === "function")
+  if (typeof catchAsync === 'function') defaults.catchAsync = catchAsync;
+  if (typeof convertToTz === 'function') defaults.convertToTz = convertToTz;
+  if (typeof authentication === 'function')
     defaults.authentication = authentication;
-  if (typeof logger === "function") defaults.logger = logger;
+  if (typeof logger === 'function') defaults.logger = logger;
   return routes;
 }

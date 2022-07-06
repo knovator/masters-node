@@ -1,3 +1,4 @@
+import { IResponse } from "../../types/Response";
 import {
   RESPONSE_CODE,
   validationError,
@@ -5,10 +6,10 @@ import {
   create,
 } from "../constants/common";
 
-export const failureResponse = (data: any, res: any) => {
+export const failureResponse = (data: any, res: IResponse) => {
   let i = 0;
-  if (data.name === "ValidationError") {
-    Object.keys(data.errors).forEach((key) => {
+  if (data?.name === "ValidationError") {
+    Object.keys(data?.errors).forEach((key) => {
       if (i !== 1) {
         data.message = data.errors[key].message;
       }
@@ -22,7 +23,7 @@ export const failureResponse = (data: any, res: any) => {
   });
 };
 
-export const successResponse = (data: any, res: any) => {
+export const successResponse = (data: any, res: IResponse) => {
   return res.status(success).json({
     code: RESPONSE_CODE.DEFAULT,
     message: res.message,
@@ -30,7 +31,7 @@ export const successResponse = (data: any, res: any) => {
   });
 };
 
-export const createdDocumentResponse = (data: any, res: any) => {
+export const createdDocumentResponse = (data: any, res: IResponse) => {
   return res.status(create).json({
     code: RESPONSE_CODE.DEFAULT,
     message: res.message,
@@ -38,7 +39,7 @@ export const createdDocumentResponse = (data: any, res: any) => {
   });
 };
 
-export const recordNotFound = (res: any) => {
+export const recordNotFound = (res: IResponse) => {
   return res.status(success).json({
     code: RESPONSE_CODE.DEFAULT,
     message: res.message,
@@ -46,8 +47,8 @@ export const recordNotFound = (res: any) => {
   });
 };
 
-export const inValidParam = (message: any, res: any) => {
-  message = message.replace(/\"/g, "");
+export const inValidParam = (message: string, res: IResponse) => {
+  message = message.replace(/\"/g, '');
   res.message = message;
   return res.status(validationError).json({
     code: RESPONSE_CODE.ERROR,
