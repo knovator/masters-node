@@ -93,11 +93,48 @@ To integrate `@knovator/masters-node`, you should be having basic `nodejs` appli
 
 ### Prerequisites
 
-As mentioned it's good start to have `nodejs` application up and running with `express` (optionally using `mongoose` for `mongodb` database). Good to have used [i18next](https://www.npmjs.com/package/i18next) to add message in response codes.
-* Sample App file
+- It's good start to have `nodejs` application up and running with `express` (optionally using `mongoose` for `mongodb` database). Good to have used [i18next](https://www.npmjs.com/package/i18next) to add message in response codes.
+- `routes` uses `mongoose` connection established by application, so it's required to connect to database before using package. Example,
   ```js
+  // db.js
+  import mongoose from 'mongoose';
+
+  mongoose
+    .connect('...')
+    .then(() => console.info('Database connected'))
+    .catch((err) => {
+      console.error('DB Error', err);
+    });
+
+  export default mongoose;
+  ```
+- Image upload route for `upload` & `remove` is needed to declare externally. Example,
+  ```js
+    // fileRoute.js
+    const express = require('express');
+    const router = express.Router;
+
+    router.post(`/files/upload`, (req, res) => {
+      ...
+    });
+
+    router.delete(`/files/remove/:id`, (req, res) => {
+      ...
+    })
+
+    export default router;
+  ```
+
+
+
+**Sample App file**
+  ```js
+    require('./db.js');
     const express = require("express");
+    const fileRoutes = require('./fileRoute.js');
+
     const app = express();
+    app.use(fileRoutes);
 
     ...
     app.listen(PORT);
@@ -131,8 +168,7 @@ As mentioned it's good start to have `nodejs` application up and running with `e
 
 App/Main file is a good place to use `@knovator/masters-node`
   ```js
-    const express = require("express");
-    const app = express();
+    ...
     const { masters } = require('masters-node');
     
     ...

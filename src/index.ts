@@ -1,4 +1,3 @@
-import './db';
 import defaults from './helpers/defaults';
 import routes from './routes/masterRoutes';
 
