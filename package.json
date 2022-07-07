@@ -9,7 +9,6 @@
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
-    "src",
     "README.md",
     "package.json"
   ],
@@ -22,6 +21,12 @@
     "nodejs",
     "mongodb"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "analyze": "size-limit --why",
     "build": "dts build",
@@ -46,7 +51,8 @@
     "testEnvironment": "node"
   },
   "peerDependencies": {
-    "express": "*"
+    "express": "*",
+    "mongoose": "*"
   },
   "engines": {
     "node": ">=12"
@@ -68,16 +74,15 @@
     "@types/joi": "^17.2.3",
     "@types/node": "^18.0.3",
     "dts-cli": "^1.5.1",
+    "express": "^4.18.1",
     "husky": "^8.0.1",
+    "mongoose": "^6.4.3",
     "size-limit": "^7.0.8",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
     "joi": "^17.6.0",
-    "mongoose": "^6.4.3",
     "mongoose-paginate-v2": "^1.7.0"
   }
 }
