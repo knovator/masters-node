@@ -1,7 +1,6 @@
 import defaults from './helpers/defaults';
 import routes from './routes/masterRoutes';
 import Master from './models/Master';
-import { Schema, model } from 'mongoose';
 
 interface MastersProps {
   convertToTz: (params: any) => any;
