@@ -23,3 +23,5 @@ export function masters({
   if (typeof logger === 'function') defaults.logger = logger;
   return routes;
 }
+
+export { Master }

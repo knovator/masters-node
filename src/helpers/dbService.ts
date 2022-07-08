@@ -1,4 +1,4 @@
-import { FilterQuery, Model, PopulateOptions, ProjectionType, QueryOptions, UpdateQuery, PaginateModel } from "mongoose";
+import { FilterQuery, Model, PopulateOptions, ProjectionType, QueryOptions, UpdateQuery } from "mongoose";
 
 export async function bulkUpdate<T extends EntityType>(
   Modal: Model<T>,
@@ -21,7 +21,7 @@ export async function findOneAndUpdateDocument<T extends EntityType>(
 ) {
   try {
     let response = await Modal.findOneAndUpdate(filter, data, options).populate(
-      populate || {}
+      populate || []
     );
     return response;
   } catch (error) {

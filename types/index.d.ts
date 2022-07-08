@@ -7,7 +7,9 @@ declare module '@knovator/masters-node' {
     catchAsync(fn: any): (req: any, res: any, next: any) => void;
   };
 
-  function masters(props: MasterProps): Router;
+  function masters(props: MastersProps): import('express').Router;
+  
+  var Master: import('mongoose').Model<MasterType>
 }
 
 type MasterType = {
