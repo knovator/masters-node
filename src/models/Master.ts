@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, PaginateModel } from 'mongoose';
 import mongoosePaginate from "mongoose-paginate-v2";
 
 const myCustomLabels = {
