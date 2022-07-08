@@ -8,6 +8,8 @@ declare module '@knovator/masters-node' {
   };
 
   function masters(props: MasterProps): Router;
+
+  var Master: import('mongoose').Model<MasterType>
 }
 
 type MasterType = {
