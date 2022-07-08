@@ -116,10 +116,20 @@ To integrate `@knovator/masters-node`, you should be having basic `nodejs` appli
 
     router.post(`/files/upload`, (req, res) => {
       ...
+      return {
+        code: 'success',
+        data: { id, uri },
+        message: 'File uploaded successfully'
+      }
     });
 
     router.delete(`/files/remove/:id`, (req, res) => {
       ...
+      return {
+        code: 'success',
+        data: {},
+        message: 'File removed successfully'
+      }
     })
 
     export default router;
@@ -150,12 +160,8 @@ To integrate `@knovator/masters-node`, you should be having basic `nodejs` appli
    # or
    yarn add @knovator/masters-node
    ```
-2. Enter database & timezone information in `.env`
+2. Enter timezone information in `.env`
    ```js
-        DB_CONNECTION=mongodb
-        DB_HOST=localhost
-        DB_PORT=27017
-        DB_DATABASE=knovator
         TZ=Asia/Colcutta
    ```
 

@@ -1,5 +1,6 @@
 import defaults from './helpers/defaults';
 import routes from './routes/masterRoutes';
+import Master from './models/Master';
 
 interface MastersProps {
   convertToTz: (params: any) => any;
@@ -22,3 +23,5 @@ export function masters({
   if (typeof logger === 'function') defaults.logger = logger;
   return routes;
 }
+
+export { Master }
