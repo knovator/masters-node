@@ -1,4 +1,4 @@
-import { FilterQuery, Model, PopulateOptions, QueryOptions, UpdateQuery } from "mongoose";
+import { FilterQuery, Model, PopulateOptions, ProjectionType, QueryOptions, UpdateQuery, PaginateModel } from "mongoose";
 
 export async function bulkUpdate<T extends EntityType>(
   Modal: Model<T>,
@@ -44,7 +44,7 @@ export async function createDocument<T extends EntityType>(
 export async function getDocumentByQuery<T extends EntityType>(
   Modal: Model<T>,
   where: FilterQuery<T>,
-  select: any[] = []
+  select: ProjectionType<T> = []
 ) {
   try {
     let response = await Modal.findOne(where, select);
@@ -69,7 +69,7 @@ export async function countDocument<T extends EntityType>(
 export async function getAllDocuments<T extends EntityType>(
   Modal: Model<T>,
   where: FilterQuery<T>,
-  options: QueryOptions
+  options: QueryOptions<T>
 ) {
   try {
     // @ts-ignore
