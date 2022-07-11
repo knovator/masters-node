@@ -97,57 +97,67 @@ To integrate `@knovator/masters-node`, you should be having basic `nodejs` appli
 - `routes` uses `mongoose` connection established by application, so it's required to connect to database before using package. Example,
   ```js
   // db.js
-  import mongoose from 'mongoose';
+  const mongoose = require('mongoose');
 
   mongoose
-    .connect('...')
+    .connect('mongodb://localhost:27017/knovator')
     .then(() => console.info('Database connected'))
     .catch((err) => {
       console.error('DB Error', err);
     });
 
-  export default mongoose;
+  module.exports = mongoose;
   ```
 - Image upload route for `upload` & `remove` is needed to declare externally. Example,
   ```js
-    // fileRoute.js
-    const express = require('express');
-    const router = express.Router;
+  // fileRoute.js
+  const express = require('express');
+  const router = express.Router();
 
-    router.post(`/files/upload`, (req, res) => {
-      ...
-      return {
-        code: 'success',
+  router.post(`/files/upload`, (req, res) => {
+      // TO DO: some file storage operation
+      let uri = "/image.jpg";
+      let id = "62c54b15524b6b59d2313c02";
+      res.json({
+        code: 'SUCCESS',
         data: { id, uri },
         message: 'File uploaded successfully'
-      }
-    });
+      });
+  });
 
-    router.delete(`/files/remove/:id`, (req, res) => {
-      ...
-      return {
-        code: 'success',
-        data: {},
-        message: 'File removed successfully'
-      }
-    })
+  router.delete(`/files/remove/:id`, (req, res) => {
+      // TO DO: some file remove operation
+      res.json({
+          code: 'SUCCESS',
+          data: {},
+          message: 'File removed successfully'
+      })
+  })
 
-    export default router;
+  module.exports = router;
   ```
 
 
 
 **Sample App file**
   ```js
-    require('./db.js');
+    require('./src/db');
+    require('./src/models/file');
+
+    const cors = require('cors');
     const express = require("express");
     const fileRoutes = require('./fileRoute.js');
+    const PORT = 8080;
 
     const app = express();
+    app.use(cors());
+    app.use(express.static("public"));
     app.use(fileRoutes);
 
-    ...
-    app.listen(PORT);
+    // ...
+    app.listen(PORT, () => {
+        console.log(`App started on ${PORT}`);
+    });
   ```
 
 
@@ -177,9 +187,11 @@ App/Main file is a good place to use `@knovator/masters-node`
     ...
     const { masters } = require('masters-node');
     
-    ...
+    // ...
     app.use("/admin/masters", masters());
-    app.listen(PORT);
+    app.listen(PORT, () => {
+        console.log(`App started on ${PORT}`);
+    });
   ```
 
 Masters package allows providing `authentication`, `logger`, `convertToTz` and `catchAsync` functions as parameters.
