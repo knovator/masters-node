@@ -34,3 +34,4 @@ type MasterType = {
 
 type EntityType = MasterType;
 
+type UpdateSequenceData = { id: string; seq: number };

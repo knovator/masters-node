@@ -47,7 +47,7 @@ routes.patch(
   MasterController.webVisibleMaster
 );
 routes.patch(
-  `/partial-update/sequence/:id`,
+  `/partial-update/sequence`,
   authenticate,
   validate(masterValidation.sequence),
   MasterController.sequenceMaster

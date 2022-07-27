@@ -33,35 +33,25 @@ export const defaultMaster = async (id: string, data: UpdateQuery<MasterType>) =
   }
 };
 
-export const sequenceMaster = async (id: any, data: UpdateQuery<MasterType>) => {
+export const sequenceMaster = async (
+  data: UpdateQuery<UpdateSequenceData[]>
+) => {
   try {
-    const masterData: any = await getDocumentByQuery(Master, { _id: id });
-    if (masterData?.seq > data.seq && masterData.parentId) {
-      await bulkUpdate(
-        Master,
-        {
-          seq: { $gte: data.seq, $lt: masterData.seq },
-          parentId: masterData.parentId,
+    const bulkSequenceUpdates = data.map((obj: UpdateSequenceData) => {
+      return {
+        updateOne: {
+          filter: {
+            _id: obj.id,
+          },
+          // If you were using the MongoDB driver directly, you'd need to do
+          // `update: { $set: { field: ... } }` but mongoose adds $set for you
+          update: {
+            seq: obj.seq,
+          },
         },
-        { $inc: { seq: 1 } }
-      );
-    } else if (masterData?.seq <= data.seq && masterData.parentId) {
-      await bulkUpdate(
-        Master,
-        {
-          seq: { $gt: masterData.seq, $lte: data.seq },
-          parentId: masterData.parentId,
-        },
-        { $inc: { seq: -1 } }
-      );
-    }
-    const result = await findOneAndUpdateDocument(
-      Master,
-      { _id: id },
-      data,
-      { new: true },
-      { path: 'img', select: 'uri' }
-    );
+      };
+    });
+    let result = await Master.bulkWrite(bulkSequenceUpdates);
     return result;
   } catch (error) {
     throw new Error((error as Error).message);
@@ -74,7 +64,8 @@ export const listMaster = async (
   search: any,
   customQuery: any,
   onlyActive = [true],
-  populate = []
+  populate = [],
+  pagination = true
 ) => {
   try {
     let query = {
@@ -84,30 +75,31 @@ export const listMaster = async (
         {
           name: {
             $regex: search,
-            $options: "i",
+            $options: 'i',
           },
         },
         {
           code: {
             $regex: search,
-            $options: "i",
+            $options: 'i',
           },
         },
       ],
     };
     let options = {
       select: [],
-      collation: "",
+      collation: '',
       customLabels: {},
       useEstimatedCount: true,
       useCustomCountFn: true,
       forceCountFn: true,
       read: {},
       options: {},
-      projection: "",
+      projection: '',
       lean: true,
       leanWithId: true,
       populate: Array.isArray(populate) ? populate : [],
+      pagination,
     };
     if (customQuery.parentCode) {
       if (Array.isArray(customQuery.parentCode)) {

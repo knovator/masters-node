@@ -24,6 +24,6 @@ export const webVisible = joi
 export const sequence = joi
   .object({
     updatedBy: joi.object().optional(),
-    seq: joi.number().optional(),
+    sequences: joi.array().required(),
   })
   .unknown(false);
