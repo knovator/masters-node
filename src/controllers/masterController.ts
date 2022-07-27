@@ -120,9 +120,9 @@ export const defaultMaster = catchAsync(async (req: any, res: any) => {
 });
 
 export const sequenceMaster = catchAsync(async (req: any, res: any) => {
-  const result = await masterService.sequenceMaster(req.params.id, req.body);
-  res.message = req?.i18n?.t("master.seq");
-  return successResponse(result, res);
+  const _result = await masterService.sequenceMaster(req.body.sequences);
+  res.message = req?.i18n?.t('master.seq');
+  return successResponse({}, res);
 });
 
 export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
@@ -143,7 +143,7 @@ export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
   );
   await Master.updateMany({ seq: { $gt: master?.seq } }, { $inc: { seq: -1 } });
   if (result) {
-    res.message = req?.i18n?.t("master.delete");
+    res.message = req?.i18n?.t('master.delete');
     return successResponse(result, res);
   }
 });
@@ -151,24 +151,26 @@ export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
 export const listMaster = catchAsync(async (req: any, res: any) => {
   let { page, limit, sort, populate } = req.body.options;
   const isCountOnly = req.body.isCountOnly || false;
-  const search = req.body.search || "";
+  const search = req.body.search || '';
   const customQuery = req.body.query || {};
   let sortMaster = sort ? sort : { seq: 1 };
   let customOptions = {
     ...(page && limit ? { page, limit, sort: sortMaster } : {}),
   };
+  let all = typeof req.body.all !== 'undefined' || false;
   const result = await masterService.listMaster(
     customOptions,
     isCountOnly,
     search,
     customQuery,
     [true, false],
-    populate
+    populate,
+    !all
   );
   if (result) {
-    res.message = req?.i18n?.t("master.findAll");
+    res.message = req?.i18n?.t('master.findAll');
     return successResponse(result, res);
   }
-  res.message = req?.i18n?.t("master.masterNotFound");
+  res.message = req?.i18n?.t('master.masterNotFound');
   return recordNotFound(res);
 });

@@ -2,7 +2,7 @@ import joi from 'joi';
 
 export default joi
   .object({
-    search: joi.string().allow("").replace(/\s+/g, "_").default(""),
+    search: joi.string().allow('').replace(/\s+/g, '_').default(''),
     query: joi
       .object({
         parentId: joi.string().optional(),
@@ -21,6 +21,7 @@ export default joi
       })
       .default({}),
     isCountOnly: joi.boolean().default(false),
-    isActive: joi.boolean().optional()
+    isActive: joi.boolean().optional(),
+    all: joi.boolean().optional(),
   })
   .unknown(false);
