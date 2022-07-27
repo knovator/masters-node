@@ -168,7 +168,8 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
   let customOptions = {
     ...(page && limit ? { page, limit, sort: sortMaster } : {}),
   };
-  let all = typeof req.body.all !== 'undefined' || false;
+  let all =
+    (typeof req.body.all !== 'undefined' && req.body.all === true) || false;
   const result = await masterService.listMaster(
     customOptions,
     isCountOnly,
