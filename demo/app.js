@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('./src/db');
 require('./src/models/file');
 
@@ -8,11 +9,11 @@ const { masters, Master } = require('@knovator/masters-node');
 const PORT = 8080;
 
 const app = express();
-app.use(express.static("public"));
+app.use(express.static('public'));
 app.use(cors());
 app.use(fileRoute);
-app.use("/admin/masters", masters());
+app.use('/admin/masters', masters());
 
 app.listen(PORT, () => {
-    console.log(`App started on ${PORT}`);
+  console.log(`App started on ${PORT}`);
 });
