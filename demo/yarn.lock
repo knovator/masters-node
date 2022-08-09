@@ -168,6 +168,11 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
 
+express-list-endpoints-descriptor@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/express-list-endpoints-descriptor/-/express-list-endpoints-descriptor-1.0.13.tgz#f59b771f527be797ca398bf24ba3f357bb5c1942"
+  integrity sha512-eGEeJNqXa6sVsJW7V3D1UiP9AS9hJ202T7n9zoknvyII+Vnkqm2kwf32diUVer2MqsikhijjEdR3gTguY/ATnw==
+
 express@^4.18.1:
   version "4.18.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.18.1.tgz#7797de8b9c72c857b9cd0e14a5eea80666267caf"
