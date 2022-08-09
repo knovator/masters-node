@@ -170,12 +170,16 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
   };
   let all =
     (typeof req.body.all !== 'undefined' && req.body.all === true) || false;
+  let isActive =
+    typeof req.body.isActive !== 'undefined'
+      ? req.body.isActive || false
+      : null;
   const result = await masterService.listMaster(
     customOptions,
     isCountOnly,
     search,
     customQuery,
-    [true, false],
+    isActive === null ? [true, false] : [isActive],
     populate,
     !all
   );

@@ -5,7 +5,7 @@ require('./src/models/file');
 const express = require('express');
 const cors = require('cors');
 const fileRoute = require('./src/routes/fileRoute');
-const { masters, Master } = require('@knovator/masters-node');
+const { masters, Master } = require('../.');
 const PORT = 8080;
 
 const app = express();
