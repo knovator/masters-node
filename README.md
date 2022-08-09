@@ -170,10 +170,6 @@ To integrate `@knovator/masters-node`, you should be having basic `nodejs` appli
    # or
    yarn add @knovator/masters-node
    ```
-2. Enter timezone information in `.env`
-   ```js
-        TZ=Asia/Colcutta
-   ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -309,6 +305,17 @@ req?.i18n?.(CODE)
 | `master.findAll` | When all data is fetched |
 | `master.masterNotFound` | When Master data is not found |
 
+### `descriptor` codes
+| Code | Description |
+| --- | ----------- |
+| `master.create` | For Create API |
+| `master.update` | For Update API |
+| `master.active` | For `isActive` toggle API |
+| `master.default` | For `isDefault` toggle API |
+| `master.webVisible` | For `isWebVisible` toggle API |
+| `master.sequence` | For `sequence` update API |
+| `master.softDelete` | For Soft-Delete API |
+| `master.list` | For List API |
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

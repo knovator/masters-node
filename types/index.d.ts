@@ -1,3 +1,6 @@
+declare module 'express-list-endpoints-descriptor' {
+  function listEndpoints(routes: any): any;
+}
 declare module '@knovator/masters-node' {
   export type MastersProps = {
     convertToTz: (params: any) => any;
@@ -8,8 +11,15 @@ declare module '@knovator/masters-node' {
   };
 
   function masters(props: MastersProps): import('express').Router;
-  
-  var Master: import('mongoose').Model<MasterType>
+
+  var Master: import('mongoose').Model<MasterType>;
+}
+
+declare module 'Router' {
+  descriptor: any;
+  // import { Router } from 'express';
+  // Router.descriptor: any = '';
+  // export default Router;
 }
 
 type MasterType = {
