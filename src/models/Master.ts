@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import mongoosePaginate from "mongoose-paginate-v2";
 import uniqueValidator from 'mongoose-unique-validator';
+import defaults from '../helpers/defaults';
 
 const myCustomLabels = {
   totalDocs: 'itemCount',
@@ -62,7 +63,18 @@ schema.pre('find', function (next) {
   this.getQuery().deletedAt = { $exists: false };
   next();
 });
-
+schema.pre('deleteOne', async function (next) {
+  if (typeof defaults.preDelete === 'function') {
+    await defaults.preDelete(this);
+  }
+  next();
+});
+schema.post('findOneAndUpdate', async function (doc, next) {
+  if (typeof defaults.postUpdate === 'function') {
+    await defaults.postUpdate(doc);
+  }
+  next();
+});
 schema.method('toJSON', function () {
   var obj: any = this.toObject();
   delete obj.createdBy;

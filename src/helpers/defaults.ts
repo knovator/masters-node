@@ -16,5 +16,7 @@ export default {
   },
   authentication: (_req: any, _res: any, next: () => any) => {
     return next();
-  }
+  },
+  preDelete: (_record: any) => Promise.resolve({}),
+  postUpdate: (_record: any) => Promise.resolve({}),
 };

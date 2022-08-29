@@ -5,20 +5,14 @@ declare module '@knovator/masters-node' {
   export type MastersProps = {
     authentication(_req: any, _res: any, next: () => any): void;
     logger: any;
-
+    preDelete: (_record: any) => Promise<{}>;
+    postUpdate: (_record: any) => Promise<{}>;
     catchAsync(fn: any): (req: any, res: any, next: any) => void;
   };
 
   function masters(props: MastersProps): import('express').Router;
 
   var Master: import('mongoose').Model<MasterType>;
-}
-
-declare module 'Router' {
-  descriptor: any;
-  // import { Router } from 'express';
-  // Router.descriptor: any = '';
-  // export default Router;
 }
 
 type MasterType = {
