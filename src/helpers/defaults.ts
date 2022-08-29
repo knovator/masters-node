@@ -17,8 +17,6 @@ export default {
   authentication: (_req: any, _res: any, next: () => any) => {
     return next();
   },
-  convertToTz: async (params: any) => {
-    let convertedDate = params?.date;
-    return convertedDate || params;
-  },
+  preDelete: (_record: any) => Promise.resolve({}),
+  postUpdate: (_record: any) => Promise.resolve({}),
 };

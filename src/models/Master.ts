@@ -1,16 +1,18 @@
 import { Schema, model } from 'mongoose';
 import mongoosePaginate from "mongoose-paginate-v2";
+import uniqueValidator from 'mongoose-unique-validator';
+import defaults from '../helpers/defaults';
 
 const myCustomLabels = {
-  totalDocs: "itemCount",
-  docs: "data",
-  limit: "perPage",
-  page: "currentPage",
-  nextPage: "next",
-  prevPage: "prev",
-  totalPages: "pageCount",
-  pagingCounter: "slNo",
-  meta: "paginator",
+  totalDocs: 'itemCount',
+  docs: 'data',
+  limit: 'perPage',
+  page: 'currentPage',
+  nextPage: 'next',
+  prevPage: 'prev',
+  totalPages: 'pageCount',
+  pagingCounter: 'slNo',
+  meta: 'paginator',
 };
 mongoosePaginate.paginate.options = {
   customLabels: myCustomLabels,
@@ -19,7 +21,7 @@ mongoosePaginate.paginate.options = {
 const schema = new Schema<MasterType>(
   {
     name: { type: String, required: true }, // name of
-    code: { type: String }, // master code
+    code: { type: String, index: true, unique: true }, // master code
     desc: { type: String }, // description
     parentId: { type: Schema.Types.ObjectId, ref: 'master' }, //parent id is belongs to master
     parentCode: { type: String }, // code of parent master
@@ -39,7 +41,7 @@ const schema = new Schema<MasterType>(
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
-schema.pre("save", async function (next) {
+schema.pre('save', async function (next) {
   if (this.parentId) {
     const masterData: any = await Master.findOne({
       parentId: this.parentId,
@@ -53,17 +55,27 @@ schema.pre("save", async function (next) {
   }
   next();
 });
-schema.pre("findOne", function (next) {
+schema.pre('findOne', function (next) {
   this.getQuery().deletedAt = { $exists: false };
   next();
 });
-schema.pre("find", function (next) {
+schema.pre('find', function (next) {
   this.getQuery().deletedAt = { $exists: false };
   next();
 });
-
-schema.plugin(mongoosePaginate);
-schema.method("toJSON", function () {
+schema.pre('deleteOne', async function (next) {
+  if (typeof defaults.preDelete === 'function') {
+    await defaults.preDelete(this);
+  }
+  next();
+});
+schema.post('findOneAndUpdate', async function (doc, next) {
+  if (typeof defaults.postUpdate === 'function') {
+    await defaults.postUpdate(doc);
+  }
+  next();
+});
+schema.method('toJSON', function () {
   var obj: any = this.toObject();
   delete obj.createdBy;
   delete obj.createdAt;
@@ -72,6 +84,9 @@ schema.method("toJSON", function () {
 
   return obj;
 });
+
+schema.plugin(uniqueValidator);
+schema.plugin(mongoosePaginate);
 
 const Master = model("master", schema, "master");
 
