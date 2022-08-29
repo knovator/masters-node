@@ -29,14 +29,6 @@ export const createMaster = catchAsync(async (req: any, res: any) => {
       { isDefault: false }
     );
   }
-  // let checkCode = await Master.findOne({
-  //   code: req.body.code,
-  //   deletedAt: { $exists: false },
-  // });
-  // if (checkCode) {
-  //   let message = req?.i18n?.t("master.codeExists");
-  //   return failureResponse(message, res);
-  // }
   const masterData = await createDocument(Master, data);
   const result = await Master.populate(masterData, [
     { path: 'img', select: 'uri' },
@@ -136,27 +128,24 @@ export const sequenceMaster = catchAsync(async (req: any, res: any) => {
   return successResponse({}, res);
 });
 
-export const softDeleteMaster = catchAsync(async (req: any, res: any) => {
+export const deleteMaster = catchAsync(async (req: any, res: any) => {
   const id = req.body.id;
-  const data = {
-    deletedAt: await defaults.convertToTz({
-      tz: process.env.TZ || '',
-      date: new Date().toISOString(),
-    }),
-  };
+  let isSubmaster = false;
   const master = await Master.findById(id);
-  const result = await bulkUpdate(
-    Master,
-    {
-      _id: { $in: id },
-    },
-    data
-  );
-  await Master.updateMany({ seq: { $gt: master?.seq } }, { $inc: { seq: -1 } });
-  if (result) {
-    res.message = req?.i18n?.t('master.delete');
-    return successResponse(result, res);
+  if (!master) {
+    res.message = req?.i18n?.t('master.masterNotFound');
+    return recordNotFound(res);
   }
+  if (master.parentId) {
+    isSubmaster = true;
+    await Master.updateMany(
+      { parentId: master.parentId, seq: { $gt: master.seq } },
+      { $inc: { seq: -1 } }
+    );
+  }
+  await Master.deleteOne({ _id: id });
+  res.message = req?.i18n?.t(`${isSubmaster ? 'submaster' : 'master'}.delete`);
+  return successResponse({}, res);
 });
 
 export const listMaster = catchAsync(async (req: any, res: any) => {

@@ -65,10 +65,10 @@ routes
   .descriptor('master.sequence');
 routes
   .put(
-    `/soft-delete`,
+    `/delete`,
     authenticate,
     validate(masterValidation.DeleteSchema),
-    MasterController.softDeleteMaster
+    MasterController.deleteMaster
   )
   .descriptor('master.softDelete');
 routes
