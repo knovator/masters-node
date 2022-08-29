@@ -190,13 +190,12 @@ App/Main file is a good place to use `@knovator/masters-node`
     });
   ```
 
-Masters package allows providing `authentication`, `logger`, `convertToTz` and `catchAsync` functions as parameters.
+Masters package allows providing `authentication`, `logger` and `catchAsync` functions as parameters.
   ```js
   app.use("/admin/masters", masters({
     authentication: (req, res, next) => {...},
     logger: console,
-    catchAsync: (function) => (req, res, next) => {...},
-    convertToTz: ({ tz, date }) => {...}
+    catchAsync: (function) => (req, res, next) => {...}
   }));
   ```
 
@@ -233,14 +232,6 @@ Masters package allows providing `authentication`, `logger`, `convertToTz` and `
         };
       }
       ```
-- `convertToTz`
-  - Provides ability to convert date to other timezone
-    ```js
-    // default
-    function convertToTz({ date, tz }) {
-      return date
-    }
-    ```
 ## Routes Infomration
 
 Response follows following structure
@@ -280,7 +271,7 @@ Response follows following structure
 | `/partial-update/default/:id` | Turn on/off `isDefault` field based on body data |
 | `/partial-update/web-visible/:id` | Turn on/off `isWebVisible` field based on body data |
 | `/partial-update/sequence/:id` | Sets sequence of record with `:id`, and updates affected records sequence |
-| `/soft-delete` | Soft Delete (fill `deletedAt` field) of record `id` send in body |
+| `/delete` | Delete the record whose `id` send in body |
 
 ### `i18n` code for messages
 
