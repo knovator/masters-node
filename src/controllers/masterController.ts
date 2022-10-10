@@ -34,7 +34,8 @@ export const createMaster = catchAsync(async (req: any, res: any) => {
     { path: 'img', select: 'uri' },
   ]);
   if (result) {
-    res.message = req?.i18n?.t('master.create');
+    let section = result.parentCode ? 'submaster' : 'master';
+    res.message = req?.i18n?.t(`${section}.create`);
     return createdDocumentResponse(result, res);
   }
 });
@@ -64,7 +65,8 @@ export const updateMaster = catchAsync(async (req: any, res: any) => {
   );
   const result = await Master.findOne({ _id: id });
   if (result) {
-    res.message = req?.i18n?.t('master.update');
+    let section = result.parentCode ? 'submaster' : 'master';
+    res.message = req?.i18n?.t(`${section}.update`);
     return successResponse(result, res);
   }
 });
@@ -81,10 +83,11 @@ export const activateMaster = catchAsync(async (req: any, res: any) => {
     { new: true },
     { path: 'img', select: 'uri' }
   );
+  let section = result.parentCode ? 'submaster' : 'master';
   if (result.isActive) {
-    res.message = req?.i18n?.t('master.activate');
+    res.message = req?.i18n?.t(`${section}.activate`);
   } else {
-    res.message = req?.i18n?.t('master.deactivate');
+    res.message = req?.i18n?.t(`${section}.deactivate`);
   }
   return successResponse(result, res);
 });
@@ -101,10 +104,11 @@ export const webVisibleMaster = catchAsync(async (req: any, res: any) => {
     { new: true },
     { path: 'img', select: 'uri' }
   );
+  let section = result.parentCode ? 'submaster' : 'master';
   if (result.isWebVisible) {
-    res.message = req?.i18n?.t('master.display');
+    res.message = req?.i18n?.t(`${section}.display`);
   } else {
-    res.message = req?.i18n?.t('master.notDisplay');
+    res.message = req?.i18n?.t(`${section}.notDisplay`);
   }
   return successResponse(result, res);
 });
@@ -114,17 +118,18 @@ export const defaultMaster = catchAsync(async (req: any, res: any) => {
     req.params.id,
     req.body
   );
+  let section = result.parentCode ? 'submaster' : 'master';
   if (result.isDefault) {
-    res.message = req?.i18n?.t('master.default');
+    res.message = req?.i18n?.t(`${section}.default`);
   } else {
-    res.message = req?.i18n?.t('master.notDefault');
+    res.message = req?.i18n?.t(`${section}.notDefault`);
   }
   return successResponse(result, res);
 });
 
 export const sequenceMaster = catchAsync(async (req: any, res: any) => {
   const _result = await masterService.sequenceMaster(req.body.sequences);
-  res.message = req?.i18n?.t('master.seq');
+  res.message = req?.i18n?.t('submaster.seq');
   return successResponse({}, res);
 });
 
@@ -172,10 +177,11 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
     populate,
     !all
   );
+  let section = customQuery.parentCode ? 'submaster' : 'master';
   if (result) {
-    res.message = req?.i18n?.t('master.findAll');
+    res.message = req?.i18n?.t(`${section}.findAll`);
     return successResponse(result, res);
   }
-  res.message = req?.i18n?.t('master.masterNotFound');
+  res.message = req?.i18n?.t(`${section}.notFound`);
   return recordNotFound(res);
 });
