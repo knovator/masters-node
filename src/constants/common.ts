@@ -1,5 +1,5 @@
 export const VALIDATION = {
-  MASTER_EXISTS: "Master exists",
+  MASTER_EXISTS: 'Record with same code is already exists',
 };
 
 export const RESPONSE_CODE = {
