@@ -282,19 +282,18 @@ req?.i18n?.(CODE)
 ```
 | CODE | Description |
 | --- | ----------- |
-| `master.codeExists` | When master/submaster record is exist with same code |
-| `master.create` | When record is created |
-| `master.update` | When record is updated |
-| `master.activate` | When `isActive` is set to true |
-| `master.deactivate` | When `isActive` is set to false |
-| `master.display` | When `isWebVisible` is set to true |
-| `master.notDisplay` | When `isWebVisible` is set to false |
-| `master.default` | When `isDefault` is set to true |
-| `master.notDefault` | When `isDefault` is set to false |
-| `master.seq` | When sequence is updated |
-| `master.delete` | When delete is performed |
-| `master.findAll` | When all data is fetched |
-| `master.masterNotFound` | When Master data is not found |
+| `(master/submaster).create` | When record is created |
+| `(master/submaster).update` | When record is updated |
+| `(master/submaster).activate` | When `isActive` is set to true |
+| `(master/submaster).deactivate` | When `isActive` is set to false |
+| `(master/submaster).display` | When `isWebVisible` is set to true |
+| `(master/submaster).notDisplay` | When `isWebVisible` is set to false |
+| `(master/submaster).default` | When `isDefault` is set to true |
+| `(master/submaster).notDefault` | When `isDefault` is set to false |
+| `submaster.seq` | When sequence is updated |
+| `(master/submaster).delete` | When delete is performed |
+| `(master/submaster).findAll` | When all data is fetched |
+| `(master/submaster).notFound` | When Master/Submaster data is not found |
 
 ### `descriptor` codes
 | Code | Description |
