@@ -138,7 +138,7 @@ export const deleteMaster = catchAsync(async (req: any, res: any) => {
   let isSubmaster = false;
   const master = await Master.findById(id);
   if (!master) {
-    res.message = req?.i18n?.t('master.masterNotFound');
+    res.message = req?.i18n?.t('master.notFound');
     return recordNotFound(res);
   }
   if (master.parentId) {
