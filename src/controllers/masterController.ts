@@ -142,11 +142,20 @@ export const deleteMaster = catchAsync(async (req: any, res: any) => {
     return recordNotFound(res);
   }
   if (master.parentId) {
+    // Deleting record is SubMaster, update submaster records sequence
     isSubmaster = true;
     await Master.updateMany(
       { parentId: master.parentId, seq: { $gt: master.seq } },
       { $inc: { seq: -1 } }
     );
+  } else {
+    // Deleting record is master, delete it's all submaster records
+    await Master.deleteMany({ 
+      $or: [
+        { parentId: master._id },
+        { parentCode: master.code },
+      ]
+    });
   }
   await Master.deleteOne({ _id: id });
   res.message = req?.i18n?.t(`${isSubmaster ? 'submaster' : 'master'}.delete`);

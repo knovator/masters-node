@@ -29,9 +29,7 @@ export default joi
   })
   .custom(async (obj) => {
     const { parentId, code } = obj;
-    let search: { code: string, parentId?: string } = { code };
-    if(parentId) search.parentId = parentId;
-    else search.parentId = undefined;
+    let search: { code: string; parentId?: string } = { code };
     const result = await getDocumentByQuery(Master, search);
     if (result) {
       throw new Error(VALIDATION.MASTER_EXISTS);
