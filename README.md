@@ -307,6 +307,8 @@ req?.i18n?.(CODE)
 | `master.softDelete` | For Soft-Delete API |
 | `master.list` | For List API |
 
+- You can prefix descriptors by adding `MASTERS_DESCRIPTOR_PREFIX` in environment variables.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
