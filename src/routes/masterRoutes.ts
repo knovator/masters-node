@@ -10,7 +10,7 @@ import * as MasterController from '../controllers/masterController';
 const routes: IRouter = express.Router();
 
 routes.use(express.json());
-
+const descriptorPrefix = process.env['MASTERS_DESCRIPTOR_PREFIX'] || '';
 const authenticate = (req: any, res: any, next: any) => {
   return defaults.authentication(req, res, next);
 };
@@ -22,7 +22,7 @@ routes
     validate(masterValidation.CreateSchema),
     MasterController.createMaster
   )
-  .descriptor('master.create');
+  .descriptor(`${descriptorPrefix}master.create`);
 routes
   .put(
     `/update/:id`,
@@ -30,7 +30,7 @@ routes
     validate(masterValidation.UpdateSchema),
     MasterController.updateMaster
   )
-  .descriptor('master.update');
+  .descriptor(`${descriptorPrefix}master.update`);
 routes
   .patch(
     `/partial-update/activate/:id`,
@@ -38,7 +38,7 @@ routes
     validate(masterValidation.activate),
     MasterController.activateMaster
   )
-  .descriptor('master.active');
+  .descriptor(`${descriptorPrefix}master.active`);
 routes
   .patch(
     `/partial-update/default/:id`,
@@ -46,7 +46,7 @@ routes
     validate(masterValidation.isDefault),
     MasterController.defaultMaster
   )
-  .descriptor('master.default');
+  .descriptor(`${descriptorPrefix}master.default`);
 routes
   .patch(
     `/partial-update/web-visible/:id`,
@@ -54,7 +54,7 @@ routes
     validate(masterValidation.webVisible),
     MasterController.webVisibleMaster
   )
-  .descriptor('master.webVisible');
+  .descriptor(`${descriptorPrefix}master.webVisible`);
 routes
   .patch(
     `/partial-update/sequence`,
@@ -62,7 +62,7 @@ routes
     validate(masterValidation.sequence),
     MasterController.sequenceMaster
   )
-  .descriptor('master.sequence');
+  .descriptor(`${descriptorPrefix}master.sequence`);
 routes
   .put(
     `/delete`,
@@ -70,7 +70,7 @@ routes
     validate(masterValidation.DeleteSchema),
     MasterController.deleteMaster
   )
-  .descriptor('master.softDelete');
+  .descriptor(`${descriptorPrefix}master.softDelete`);
 routes
   .post(
     `/list`,
@@ -78,6 +78,6 @@ routes
     validate(masterValidation.ListSchema),
     MasterController.listMaster
   )
-  .descriptor('master.list');
+  .descriptor(`${descriptorPrefix}master.list`);
 
 export default routes;
