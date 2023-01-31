@@ -21,7 +21,7 @@ mongoosePaginate.paginate.options = {
 const schema = new Schema<MasterType>(
   {
     name: { type: String, required: true }, // name of
-    code: { type: String, index: true, unique: true }, // master code
+    code: { type: String, required: true }, // master code
     desc: { type: String }, // description
     parentId: { type: Schema.Types.ObjectId, ref: 'master' }, //parent id is belongs to master
     parentCode: { type: String }, // code of parent master
