@@ -12,7 +12,7 @@ router.post(`/files/upload`, (req, res) => {
     });
 });
 
-router.delete(`/files/remove/:id`, (req, res) => {
+router.delete(`/files/:id/delete`, (req, res) => {
     // TO DO: some file remove operation
     res.json({
         code: 'SUCCESS',
