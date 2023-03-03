@@ -96,9 +96,9 @@ export const listMaster = async (
       read: {},
       options: {},
       projection: '',
-      lean: true,
-      leanWithId: true,
-      populate: Array.isArray(populate) ? populate : ["img"],
+      // lean: true,
+      // leanWithId: true,
+      populate: Array.isArray(populate) ? populate : ['img'],
       pagination,
     };
     if (customQuery.parentCode) {
