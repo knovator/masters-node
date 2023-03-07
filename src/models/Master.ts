@@ -77,10 +77,7 @@ schema.post('findOneAndUpdate', async function (doc, next) {
 });
 schema.method('toJSON', function () {
   var obj: any = this.toObject();
-  delete obj.createdBy;
-  delete obj.createdAt;
-  delete obj.updatedBy;
-  delete obj.updatedAt;
+  delete obj['__v'];
 
   return obj;
 });
