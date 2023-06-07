@@ -33,6 +33,7 @@ const schema = new Schema<MasterType>(
     isWebVisible: { type: Boolean }, // it is a visible for web
     canDel: { type: Boolean, default: true },
     deletedAt: { type: Date },
+    extra: { type: String },
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     updatedBy: [{ type: Schema.Types.ObjectId, ref: 'user' }],
     deletedBy: { type: Schema.Types.ObjectId, ref: 'user' },

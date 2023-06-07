@@ -4,7 +4,7 @@ export default joi
   .object({
     name: joi.string().optional(),
     desc: joi.optional(),
-    img: joi.string().optional().allow(null).allow(""),
+    img: joi.string().optional().allow(null).allow(''),
     webDsply: joi.string().optional(),
     isWebVisible: joi.boolean().optional(),
     canDel: joi.boolean().optional(),
@@ -12,5 +12,6 @@ export default joi
     isDefault: joi.boolean().optional(),
     seq: joi.number().optional(),
     updatedBy: joi.object().optional(),
+    extra: joi.string().optional(),
   })
   .unknown(false);

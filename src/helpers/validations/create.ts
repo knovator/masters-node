@@ -9,9 +9,10 @@ export default joi
     code: joi
       .string()
       .uppercase()
-      .replace(/\s+/g, "_")
+      .replace(/\s+/g, '_')
       // .external(method)
       .required(),
+    extra: joi.string().optional(),
     desc: joi.string().allow('').optional(),
     parentId: joi.string().optional(),
     parentCode: joi.string().optional(),

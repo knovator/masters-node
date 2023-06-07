@@ -29,6 +29,7 @@ type MasterType = {
   isWebVisible: boolean; // it is a visible for web
   canDel: boolean;
   deletedAt: Date;
+  extra: string;
   createdBy: import('mongoose').ObjectId;
   updatedBy: [import('mongoose').ObjectId];
   deletedBy: import('mongoose').ObjectId;
