@@ -5,13 +5,14 @@ import { getDocumentByQuery } from "../../helpers/dbService";
 
 export default joi
   .object({
-    name: joi.string().required(),
+    name: joi.string().optional(),
     code: joi
       .string()
       .uppercase()
       .replace(/\s+/g, '_')
       // .external(method)
       .required(),
+    names: joi.object().optional(),
     extra: joi.string().optional(),
     desc: joi.string().allow('').optional(),
     parentId: joi.string().optional(),
@@ -38,4 +39,5 @@ export default joi
     }
     return obj;
   })
+  .or('name', 'names')
   .unknown(false);
