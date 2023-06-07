@@ -32,7 +32,6 @@ const schema = new Schema<MasterType>(
     webDsply: { type: String }, // visible name for frontend
     isWebVisible: { type: Boolean }, // it is a visible for web
     canDel: { type: Boolean, default: true },
-    isApproved: { type: Boolean, default: false },
     deletedAt: { type: Date },
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     updatedBy: [{ type: Schema.Types.ObjectId, ref: 'user' }],
