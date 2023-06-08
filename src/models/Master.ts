@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import mongoosePaginate from "mongoose-paginate-v2";
+import mongoosePaginate from 'mongoose-paginate-v2';
 import uniqueValidator from 'mongoose-unique-validator';
 import defaults from '../helpers/defaults';
 
@@ -17,11 +17,17 @@ const myCustomLabels = {
 mongoosePaginate.paginate.options = {
   customLabels: myCustomLabels,
 };
+const namesSchema = defaults.languages.reduce((acc: any, lang) => {
+  acc[lang.code] = { type: String, required: true };
+  return acc;
+}, {});
 
 const schema = new Schema<MasterType>(
   {
-    name: { type: String, required: true }, // name of
-    code: { type: String, index: true, unique: true }, // master code
+    name: { type: String }, // name of
+    // @ts-ignore
+    names: namesSchema,
+    code: { type: String, required: true }, // master code
     desc: { type: String }, // description
     parentId: { type: Schema.Types.ObjectId, ref: 'master' }, //parent id is belongs to master
     parentCode: { type: String }, // code of parent master
@@ -32,8 +38,8 @@ const schema = new Schema<MasterType>(
     webDsply: { type: String }, // visible name for frontend
     isWebVisible: { type: Boolean }, // it is a visible for web
     canDel: { type: Boolean, default: true },
-    isApproved: { type: Boolean, default: false },
     deletedAt: { type: Date },
+    extra: { type: String },
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     updatedBy: [{ type: Schema.Types.ObjectId, ref: 'user' }],
     deletedBy: { type: Schema.Types.ObjectId, ref: 'user' },
@@ -42,15 +48,15 @@ const schema = new Schema<MasterType>(
 );
 
 schema.pre('save', async function (next) {
-  if (this.parentId) {
+  if ((this as any).parentId) {
     const masterData: any = await Master.findOne({
-      parentId: this.parentId,
+      parentId: (this as any).parentId,
       deletedAt: { $exists: false },
     }).sort({ createdAt: -1 });
     let number = masterData && masterData.seq ? masterData.seq + 1 : 1;
 
-    if (!this.seq) {
-      this.seq = number;
+    if (!(this as any).seq) {
+      (this as any).seq = number;
     }
   }
   next();
@@ -77,10 +83,7 @@ schema.post('findOneAndUpdate', async function (doc, next) {
 });
 schema.method('toJSON', function () {
   var obj: any = this.toObject();
-  delete obj.createdBy;
-  delete obj.createdAt;
-  delete obj.updatedBy;
-  delete obj.updatedAt;
+  delete obj['__v'];
 
   return obj;
 });
@@ -88,6 +91,6 @@ schema.method('toJSON', function () {
 schema.plugin(uniqueValidator);
 schema.plugin(mongoosePaginate);
 
-const Master = model("master", schema, "master");
+const Master = model('master', schema, 'master');
 
 export default Master;

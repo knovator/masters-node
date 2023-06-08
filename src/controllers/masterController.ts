@@ -194,3 +194,10 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
   res.message = req?.i18n?.t(`${section}.notFound`);
   return recordNotFound(res);
 });
+
+export const getLanguages = catchAsync(async (req: any, res: any) => {
+  return successResponse(
+    Array.isArray(defaults.languages) ? defaults.languages : [],
+    res
+  );
+});

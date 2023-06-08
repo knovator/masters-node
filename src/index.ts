@@ -8,6 +8,7 @@ interface MastersProps {
   catchAsync(fn: any): (req: any, res: any, next: any) => void;
   preDelete: (_record: any) => Promise<{}>;
   postUpdate: (_record: any) => Promise<{}>;
+  languages: LanguageType[];
 }
 
 export function masters({
@@ -16,6 +17,7 @@ export function masters({
   catchAsync,
   preDelete,
   postUpdate,
+  languages,
 }: Partial<MastersProps> = defaults) {
   if (typeof catchAsync === 'function') defaults.catchAsync = catchAsync;
   if (typeof authentication === 'function')
@@ -23,6 +25,7 @@ export function masters({
   if (typeof logger === 'function') defaults.logger = logger;
   if (typeof preDelete === 'function') defaults.preDelete = preDelete;
   if (typeof postUpdate === 'function') defaults.postUpdate = postUpdate;
+  if (Array.isArray(languages)) defaults.languages = languages;
   return routes;
 }
 

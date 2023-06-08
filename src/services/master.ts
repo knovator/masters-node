@@ -64,7 +64,7 @@ export const listMaster = async (
   search: any,
   customQuery: any,
   onlyActive = [true],
-  populate = [],
+  populate: any,
   pagination = true
 ) => {
   try {
@@ -96,9 +96,9 @@ export const listMaster = async (
       read: {},
       options: {},
       projection: '',
-      lean: true,
-      leanWithId: true,
-      populate: Array.isArray(populate) ? populate : [],
+      // lean: true,
+      // leanWithId: true,
+      populate: Array.isArray(populate) ? populate : ['img'],
       pagination,
     };
     if (customQuery.parentCode) {

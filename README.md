@@ -58,6 +58,7 @@
         <li><a href="#i18n-code-for-messages">i18n Message Codes</a></li>
       </ul>
     </li>
+    <li><a href="#usecases">Usecases</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -307,8 +308,21 @@ req?.i18n?.(CODE)
 | `master.softDelete` | For Soft-Delete API |
 | `master.list` | For List API |
 
+- You can prefix descriptors by adding `MASTERS_DESCRIPTOR_PREFIX` in environment variables.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Usecases
+
+`@knovator/masters` is combination of two packages `@knovator/masters-admin` and `@knovator/masters-admin`. It is designed plug and play masters module in your project. It is useful in following cases:
+
+- Your app needs master, submaster facility to build things like `state` with `city`, `experiences` with `skills`, `categories` with `subcategories` etc.
+- You want to let admin manage masters and submasters data from admin panel.
+- You want to show masters and submasters data somewhere in your app.
+
+If you have any other usecase, please open an issue with tag `usecase`. We will try to add it in our roadmap.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 ## Contributing
