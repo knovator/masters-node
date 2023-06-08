@@ -20,7 +20,7 @@ export default joi
     img: joi.string().optional(),
     seq: joi.number().optional(),
     isDefault: joi.boolean().optional(),
-    webDsply: joi.string().optional(),
+    webDsply: joi.string().allow('').optional(),
     isWebVisible: joi.boolean().optional(),
     canDel: joi.boolean().default(true),
     createdBy: joi.object().optional(),
