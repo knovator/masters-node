@@ -15,6 +15,7 @@ const authenticate = (req: any, res: any, next: any) => {
   return defaults.authentication(req, res, next);
 };
 
+routes.get(`/languages`, authenticate, MasterController.getLanguages);
 routes
   .post(
     `/create`,

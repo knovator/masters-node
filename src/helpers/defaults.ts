@@ -19,4 +19,5 @@ export default {
   },
   preDelete: (_record: any) => Promise.resolve({}),
   postUpdate: (_record: any) => Promise.resolve({}),
+  languages: [] as LanguageType[],
 };

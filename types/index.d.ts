@@ -28,8 +28,8 @@ type MasterType = {
   webDsply: string;
   isWebVisible: boolean; // it is a visible for web
   canDel: boolean;
-  isApproved: boolean;
   deletedAt: Date;
+  extra: string;
   createdBy: import('mongoose').ObjectId;
   updatedBy: [import('mongoose').ObjectId];
   deletedBy: import('mongoose').ObjectId;
@@ -38,3 +38,5 @@ type MasterType = {
 type EntityType = MasterType;
 
 type UpdateSequenceData = { id: string; seq: number };
+
+type LanguageType = { code: string; name: string };

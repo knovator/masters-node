@@ -5,20 +5,22 @@ import { getDocumentByQuery } from "../../helpers/dbService";
 
 export default joi
   .object({
-    name: joi.string().required(),
+    name: joi.string().optional(),
     code: joi
       .string()
       .uppercase()
-      .replace(/\s+/g, "_")
+      .replace(/\s+/g, '_')
       // .external(method)
       .required(),
+    names: joi.object().optional(),
+    extra: joi.string().optional(),
     desc: joi.string().allow('').optional(),
     parentId: joi.string().optional(),
     parentCode: joi.string().optional(),
     img: joi.string().optional(),
     seq: joi.number().optional(),
     isDefault: joi.boolean().optional(),
-    webDsply: joi.string().optional(),
+    webDsply: joi.string().allow('').optional(),
     isWebVisible: joi.boolean().optional(),
     canDel: joi.boolean().default(true),
     createdBy: joi.object().optional(),
@@ -37,4 +39,5 @@ export default joi
     }
     return obj;
   })
+  .or('name', 'names')
   .unknown(false);
