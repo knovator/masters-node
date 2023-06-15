@@ -15,5 +15,4 @@ export default joi
     updatedBy: joi.object().optional(),
     extra: joi.string().optional(),
   })
-  .or('name', 'names')
   .unknown(false);
