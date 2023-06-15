@@ -39,5 +39,4 @@ export default joi
     }
     return obj;
   })
-  .or('name', 'names')
   .unknown(false);
