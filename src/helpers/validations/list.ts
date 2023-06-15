@@ -23,5 +23,6 @@ export default joi
     isCountOnly: joi.boolean().default(false),
     isActive: joi.boolean().optional(),
     all: joi.boolean().optional(),
+    createdBy: joi.object().optional(),
   })
   .unknown(false);
