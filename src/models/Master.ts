@@ -69,12 +69,16 @@ schema.pre('find', function (next) {
   this.getQuery().deletedAt = { $exists: false };
   next();
 });
-schema.pre('deleteOne', async function (next) {
-  if (typeof defaults.preDelete === 'function') {
-    await defaults.preDelete(this);
+schema.pre(
+  'deleteOne',
+  { document: true, query: false },
+  async function (next) {
+    if (typeof defaults.preDelete === 'function') {
+      await defaults.preDelete(this);
+    }
+    next();
   }
-  next();
-});
+);
 schema.post('findOneAndUpdate', async function (doc, next) {
   if (typeof defaults.postUpdate === 'function') {
     await defaults.postUpdate(doc);

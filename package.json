@@ -1,6 +1,6 @@
 {
   "name": "@knovator/masters-node",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "license": "MIT",
   "author": "knovator (https://knovator.com/)",
   "description": "NodeJS backend for @knovator/masters",

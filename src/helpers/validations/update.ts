@@ -6,7 +6,7 @@ export default joi
     desc: joi.optional(),
     names: joi.object().optional(),
     img: joi.string().optional().allow(null).allow(''),
-    webDsply: joi.string().optional(),
+    webDsply: joi.string().allow('').optional(),
     isWebVisible: joi.boolean().optional(),
     canDel: joi.boolean().optional(),
     isActive: joi.boolean().optional(),

@@ -157,7 +157,7 @@ export const deleteMaster = catchAsync(async (req: any, res: any) => {
       ]
     });
   }
-  await Master.deleteOne({ _id: id });
+  await master.deleteOne();
   res.message = req?.i18n?.t(`${isSubmaster ? 'submaster' : 'master'}.delete`);
   return successResponse({}, res);
 });
