@@ -80,7 +80,7 @@ export const listMaster = async (
         },
         {
           code: {
-            $regex: search,
+            $regex: search.replace(/\s+/g, '_'),
             $options: 'i',
           },
         },

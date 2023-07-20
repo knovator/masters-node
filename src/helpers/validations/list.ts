@@ -2,7 +2,7 @@ import joi from 'joi';
 
 export default joi
   .object({
-    search: joi.string().allow('').replace(/\s+/g, '_').default(''),
+    search: joi.string().allow('').default(''),
     query: joi
       .object({
         parentId: joi.string().optional(),
