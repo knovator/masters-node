@@ -169,7 +169,9 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
   const customQuery = req.body.query || {};
   let sortMaster = sort ? sort : { seq: 1 };
   let customOptions = {
-    ...(page && limit ? { page, limit, sort: sortMaster } : {}),
+    ...(page && limit
+      ? { page, limit, sort: sortMaster }
+      : { sort: sortMaster }),
   };
   let all =
     (typeof req.body.all !== 'undefined' && req.body.all === true) || false;
