@@ -1,6 +1,6 @@
 import defaults from './helpers/defaults';
 import routes from './routes/masterRoutes';
-import Master from './models/Master';
+import Master, { MasterSchema } from './models/Master';
 
 interface MastersProps {
   authentication(_req: any, _res: any, next: () => any): void;
@@ -29,4 +29,4 @@ export function masters({
   return routes;
 }
 
-export { Master }
+export { Master, MasterSchema };

@@ -22,7 +22,7 @@ const namesSchema = defaults.languages.reduce((acc: any, lang) => {
   return acc;
 }, {});
 
-const schema = new Schema<MasterType>(
+export const MasterSchema = new Schema<MasterType>(
   {
     name: { type: String }, // name of
     // @ts-ignore
@@ -47,7 +47,7 @@ const schema = new Schema<MasterType>(
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
-schema.pre('save', async function (next) {
+MasterSchema.pre('save', async function (next) {
   if ((this as any).parentId) {
     const masterData: any = await Master.findOne({
       parentId: (this as any).parentId,
@@ -61,15 +61,15 @@ schema.pre('save', async function (next) {
   }
   next();
 });
-schema.pre('findOne', function (next) {
+MasterSchema.pre('findOne', function (next) {
   this.getQuery().deletedAt = { $exists: false };
   next();
 });
-schema.pre('find', function (next) {
+MasterSchema.pre('find', function (next) {
   this.getQuery().deletedAt = { $exists: false };
   next();
 });
-schema.pre(
+MasterSchema.pre(
   'deleteOne',
   { document: true, query: false },
   async function (next) {
@@ -79,22 +79,22 @@ schema.pre(
     next();
   }
 );
-schema.post('findOneAndUpdate', async function (doc, next) {
+MasterSchema.post('findOneAndUpdate', async function (doc, next) {
   if (typeof defaults.postUpdate === 'function') {
     await defaults.postUpdate(doc);
   }
   next();
 });
-schema.method('toJSON', function () {
+MasterSchema.method('toJSON', function () {
   var obj: any = this.toObject();
   delete obj['__v'];
 
   return obj;
 });
 
-schema.plugin(uniqueValidator);
-schema.plugin(mongoosePaginate);
+MasterSchema.plugin(uniqueValidator);
+MasterSchema.plugin(mongoosePaginate);
 
-const Master = model('master', schema, 'master');
+const Master = model('master', MasterSchema, 'master');
 
 export default Master;
