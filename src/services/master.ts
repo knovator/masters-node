@@ -96,7 +96,6 @@ export const listMaster = async (
         },
       ],
     };
-    console.log(query);
     let options = {
       select: [],
       collation: '',
@@ -127,7 +126,6 @@ export const listMaster = async (
       result = { totalRecords: result };
       return result;
     } else {
-      console.log(query, options);
       if (options !== undefined) {
         options = {
           ...options,
