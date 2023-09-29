@@ -2,6 +2,7 @@ import joi from 'joi';
 
 export default joi
   .object({
+    language: joi.string().optional(),
     search: joi.string().allow('').default(''),
     query: joi
       .object({

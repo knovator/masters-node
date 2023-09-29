@@ -179,6 +179,14 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
     typeof req.body.isActive !== 'undefined'
       ? req.body.isActive || false
       : null;
+  let languages: undefined | string[];
+  if (Array.isArray(defaults.languages) && defaults.languages.length > 0) {
+    let providedLanguages = defaults.languages.map((lan) => lan.code);
+    if (req.body.language && providedLanguages.includes(req.body.language)) {
+      languages = [req.body.language];
+    } else languages = providedLanguages;
+  } else languages = undefined;
+
   const result = await masterService.listMaster(
     customOptions,
     isCountOnly,
@@ -186,7 +194,8 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
     customQuery,
     isActive === null ? [true, false] : [isActive],
     populate,
-    !all
+    !all,
+    languages
   );
   let section = customQuery.parentCode ? 'submaster' : 'master';
   if (result) {

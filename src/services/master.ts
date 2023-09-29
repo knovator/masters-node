@@ -65,19 +65,29 @@ export const listMaster = async (
   customQuery: any,
   onlyActive = [true],
   populate: any,
-  pagination = true
+  pagination = true,
+  languages: undefined | string[] = undefined
 ) => {
   try {
     let query = {
       deletedAt: { $exists: false },
       isActive: { $in: onlyActive },
       $or: [
-        {
-          name: {
-            $regex: search,
-            $options: 'i',
-          },
-        },
+        ...(Array.isArray(languages) && languages.length > 0
+          ? languages.map((langKey) => ({
+              [`names.${langKey}`]: {
+                $regex: search,
+                $options: 'i',
+              },
+            }))
+          : [
+              {
+                name: {
+                  $regex: search,
+                  $options: 'i',
+                },
+              },
+            ]),
         {
           code: {
             $regex: search.replace(/\s+/g, '_'),
