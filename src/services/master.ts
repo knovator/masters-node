@@ -94,6 +94,16 @@ export const listMaster = async (
             $options: 'i',
           },
         },
+        ...(typeof customQuery.extra !== 'undefined'
+          ? [
+              {
+                extra: {
+                  $regex: customQuery.extra,
+                  $options: 'i',
+                },
+              },
+            ]
+          : []),
       ],
     };
     let options = {
