@@ -9,6 +9,7 @@ export default joi
         parentId: joi.string().optional(),
         parentCode: joi.optional(),
         _id: joi.string().optional(),
+        extra: joi.string().optional(),
       })
       .default({}),
     options: joi
