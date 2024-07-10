@@ -105,6 +105,14 @@ export const listMaster = async (
             ]
           : []),
       ],
+      ...(customQuery.extra
+        ? {
+            extra: {
+              $regex: customQuery.extra,
+              $options: 'i',
+            },
+          }
+        : {}),
     };
     let options = {
       select: [],
