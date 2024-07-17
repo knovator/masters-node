@@ -104,11 +104,29 @@ export const listMaster = async (
               },
             ]
           : []),
+        ...(typeof customQuery.code !== 'undefined'
+          ? [
+              {
+                code: {
+                  $regex: customQuery.code,
+                  $options: 'i',
+                },
+              },
+            ]
+          : []),
       ],
       ...(customQuery.extra
         ? {
             extra: {
               $regex: customQuery.extra,
+              $options: 'i',
+            },
+          }
+        : {}),
+      ...(customQuery.code
+        ? {
+          code: {
+              $regex: customQuery.code,
               $options: 'i',
             },
           }
