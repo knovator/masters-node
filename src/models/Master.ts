@@ -38,6 +38,7 @@ export const MasterSchema = new Schema<MasterType>(
     webDsply: { type: String }, // visible name for frontend
     isWebVisible: { type: Boolean }, // it is a visible for web
     canDel: { type: Boolean, default: true },
+    canEdit: { type: Boolean, default: true },
     deletedAt: { type: Date },
     extra: { type: String },
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
