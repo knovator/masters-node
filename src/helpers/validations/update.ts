@@ -9,6 +9,7 @@ export default joi
     webDsply: joi.string().allow('').optional(),
     isWebVisible: joi.boolean().optional(),
     canDel: joi.boolean().optional(),
+    canEdit: joi.boolean().optional(),
     isActive: joi.boolean().optional(),
     isDefault: joi.boolean().optional(),
     seq: joi.number().optional(),

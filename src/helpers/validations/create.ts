@@ -23,6 +23,7 @@ export default joi
     webDsply: joi.string().allow('').optional(),
     isWebVisible: joi.boolean().optional(),
     canDel: joi.boolean().default(true),
+    canEdit: joi.boolean().default(true),
     createdBy: joi.object().optional(),
     updatedBy: joi.object().optional(),
     deletedBy: joi.object().optional(),
