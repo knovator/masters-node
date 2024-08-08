@@ -15,5 +15,6 @@ export default joi
     seq: joi.number().optional(),
     updatedBy: joi.object().optional(),
     extra: joi.string().optional(),
+    synonym: joi.array().optional()
   })
   .unknown(false);

@@ -34,6 +34,7 @@ type MasterType = {
   createdBy: import('mongoose').ObjectId;
   updatedBy: [import('mongoose').ObjectId];
   deletedBy: import('mongoose').ObjectId;
+  synonym: []
 };
 
 type EntityType = MasterType;

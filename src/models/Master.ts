@@ -44,6 +44,7 @@ export const MasterSchema = new Schema<MasterType>(
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     updatedBy: [{ type: Schema.Types.ObjectId, ref: 'user' }],
     deletedBy: { type: Schema.Types.ObjectId, ref: 'user' },
+    synonym: [],
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
