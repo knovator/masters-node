@@ -89,6 +89,12 @@ export const listMaster = async (
               },
             ]),
         {
+              synonym : {
+                $regex: search,
+                $options: 'i',
+              },
+            },
+        {
           code: {
             $regex: search.replace(/\s+/g, '_'),
             $options: 'i',
