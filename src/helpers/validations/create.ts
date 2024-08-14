@@ -29,7 +29,8 @@ export default joi
     deletedBy: joi.object().optional(),
     deletedAt: joi.date().optional(),
     isActive: joi.boolean().default(true),
-    synonym: joi.array().optional()
+    synonym: joi.array().optional(),
+    mergeSubmasters: joi.array().optional()
   })
   .custom(async (obj) => {
     const { parentId, code } = obj;

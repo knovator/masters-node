@@ -2,6 +2,7 @@ import { RESPONSE_CODE, internalServerError } from "../constants/common";
 
 export default {
   logger: console,
+  onMastersMerged: (_removedMasterIds: string[], _newMasterId: string) => {},
   catchAsync: function (fn: any) {
     return function (req: any, res: any, next: any) {
       Promise.resolve(fn(req, res, next)).catch((err) => {

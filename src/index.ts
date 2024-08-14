@@ -9,6 +9,7 @@ interface MastersProps {
   preDelete: (_record: any) => Promise<{}>;
   postUpdate: (_record: any) => Promise<{}>;
   languages: LanguageType[];
+  onMastersMerged: any
 }
 
 export function masters({
@@ -18,7 +19,9 @@ export function masters({
   preDelete,
   postUpdate,
   languages,
+  onMastersMerged
 }: Partial<MastersProps> = defaults) {
+  if (typeof onMastersMerged === 'function') defaults.onMastersMerged = onMastersMerged
   if (typeof catchAsync === 'function') defaults.catchAsync = catchAsync;
   if (typeof authentication === 'function')
     defaults.authentication = authentication;

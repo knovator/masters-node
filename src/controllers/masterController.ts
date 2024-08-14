@@ -13,14 +13,22 @@ import {
   createDocument,
   getDocumentByQuery,
 } from '../helpers/dbService';
+import { mergeSubmastersFunc } from '../helpers/utils';
 
 const catchAsync = (fn: any) => {
   return defaults.catchAsync(fn);
 };
 
 export const createMaster = catchAsync(async (req: any, res: any) => {
+  const { mergeSubmasters = [], synonym = [], ...restBody } = req.body;
+  const mergeSubmastersID = mergeSubmasters.map(
+    (submaster: any) => submaster.value
+  );
+  let mergedSynonyms = await mergeSubmastersFunc(mergeSubmastersID, Master);
+  mergedSynonyms = [...mergedSynonyms, ...synonym];
   const data = new Master({
-    ...req.body,
+    ...restBody,
+    synonym: mergedSynonyms,
   });
   if (data.parentId && data.isDefault) {
     await bulkUpdate(
@@ -33,6 +41,18 @@ export const createMaster = catchAsync(async (req: any, res: any) => {
   const result = await Master.populate(masterData, [
     { path: 'img', select: 'uri' },
   ]);
+
+  if (mergeSubmastersID.length > 0) {
+    try {
+      await Master.deleteMany({ _id: { $in: mergeSubmastersID } });
+      defaults.onMastersMerged(mergeSubmastersID, masterData._id.toString());
+    } catch (error) {
+      throw new Error(
+        `Failed to delete mergeSubmasters: ${(error as Error).message}`
+      );
+    }
+  }
+
   if (result) {
     let section = result.parentCode ? 'submaster' : 'master';
     res.message = req?.i18n?.t(`${section}.create`);
@@ -41,8 +61,17 @@ export const createMaster = catchAsync(async (req: any, res: any) => {
 });
 
 export const updateMaster = catchAsync(async (req: any, res: any) => {
+  const { mergeSubmasters = [], synonym = [], ...restBody } = req.body;
+  const mergeSubmastersID = mergeSubmasters.map(
+    (submaster: any) => submaster.value
+  );
+  let mergedSynonyms = await mergeSubmastersFunc(mergeSubmastersID, Master);
+  mergedSynonyms = [...mergedSynonyms, ...synonym];
+  const data = {
+    ...restBody,
+    synonym: mergedSynonyms,
+  };
   const id = req.params.id;
-  const data = req.body;
   if (data.isDefault) {
     // checking if data contains isDefault, if contains, reset all defaults
     const masterData: any = await getDocumentByQuery(Master, { _id: id });
@@ -63,6 +92,16 @@ export const updateMaster = catchAsync(async (req: any, res: any) => {
     { new: true },
     { path: 'img', select: 'uri' }
   );
+  if (mergeSubmastersID?.length > 0) {
+    try {
+      await Master.deleteMany({ _id: { $in: mergeSubmastersID } });
+      defaults.onMastersMerged(mergeSubmastersID, id);
+    } catch (error) {
+      throw new Error(
+        `Failed to delete mergeSubmasters: ${(error as Error).message}`
+      );
+    }
+  }
   const result = await Master.findOne({ _id: id });
   if (result) {
     let section = result.parentCode ? 'submaster' : 'master';
@@ -165,6 +204,7 @@ export const deleteMaster = catchAsync(async (req: any, res: any) => {
 export const listMaster = catchAsync(async (req: any, res: any) => {
   let { page, limit, sort, populate } = req.body.options;
   const isCountOnly = req.body.isCountOnly || false;
+  const exclude = req.body.exclude;
   const search = req.body.search || '';
   const customQuery = req.body.query || {};
   let sortMaster = sort ? sort : { seq: 1 };
@@ -191,6 +231,7 @@ export const listMaster = catchAsync(async (req: any, res: any) => {
     customOptions,
     isCountOnly,
     search,
+    exclude,
     customQuery,
     isActive === null ? [true, false] : [isActive],
     populate,
