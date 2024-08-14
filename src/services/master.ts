@@ -62,6 +62,7 @@ export const listMaster = async (
   customOptions: any,
   isCountOnly: any,
   search: any,
+  exclude: string,
   customQuery: any,
   onlyActive = [true],
   populate: any,
@@ -88,6 +89,12 @@ export const listMaster = async (
                 },
               },
             ]),
+        {
+              synonym : {
+                $regex: search,
+                $options: 'i',
+              },
+            },
         {
           code: {
             $regex: search.replace(/\s+/g, '_'),
@@ -132,6 +139,9 @@ export const listMaster = async (
           }
         : {}),
     };
+    if (exclude) {
+      (query as any)._id = { $ne: exclude };
+    }
     let options = {
       select: [],
       collation: '',
