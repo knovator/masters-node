@@ -72,22 +72,21 @@ export const listMaster = async (
     let query = {
       deletedAt: { $exists: false },
       isActive: { $in: onlyActive },
+
+
+      ...(search && Array.isArray(languages) && languages.length > 0
+    ? {
+        $and: languages.map((langKey) => ({
+          [`names.${langKey}`]: { $regex: search, $options: 'i' },
+        })),
+      }
+    : search
+    ? {
+        name: { $regex: search, $options: 'i' },
+      }
+    : {}),
+
       $or: [
-        ...(Array.isArray(languages) && languages.length > 0
-          ? languages.map((langKey) => ({
-              [`names.${langKey}`]: {
-                $regex: search,
-                $options: 'i',
-              },
-            }))
-          : [
-              {
-                name: {
-                  $regex: search,
-                  $options: 'i',
-                },
-              },
-            ]),
         {
           code: {
             $regex: search.replace(/\s+/g, '_'),
